@@ -27,8 +27,6 @@ namespace HeroKnightGame
 
             if (KeyState.IsKeyDown(Keys.D)) velocity.X = Speed;
             if (KeyState.IsKeyDown(Keys.A)) velocity.X = -Speed;
-            //if (KeyState.IsKeyDown(Keys.W)) velocity.Y = -Speed;
-            if (KeyState.IsKeyDown(Keys.S)) velocity.Y = Speed;
 
             if (KeyState.IsKeyDown(Keys.Space) && _onground) velocity.Y = -Jump;
 
