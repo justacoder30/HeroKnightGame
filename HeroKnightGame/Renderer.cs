@@ -26,9 +26,6 @@ namespace HeroKnightGame
             int newWidth = (int)(_target.Width * scale);
             int newHeight = (int)(_target.Height * scale);
 
-            //int posX = (screenSize.Width - newWidth) / 2;
-            //int posY = (screenSize.Height - newHeight) / 2;
-
             Rectangle = new Rectangle(0, 0, newWidth, newHeight);
         }
 

@@ -7,7 +7,7 @@ namespace HeroKnightGame
     public class Player : Sprite
     {
         private Vector2 velocity;
-        public const int Speed = 800;
+        private const int Speed = 400;
         
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -23,7 +23,7 @@ namespace HeroKnightGame
             if (KeyState.IsKeyDown(Keys.D)) velocity.X++;
             if (KeyState.IsKeyDown(Keys.A)) velocity.X--;
 
-            _position += velocity * Globals.Time;
+            _position += velocity * Speed * Globals.Time;
         }
     }
 }
