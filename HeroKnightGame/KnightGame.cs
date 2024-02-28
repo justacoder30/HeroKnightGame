@@ -7,6 +7,8 @@ namespace HeroKnightGame
     public class KnightGame : Game
     {
 
+        private EntityManager _entityManager;
+
         public KnightGame()
         {
             Globals.Graphics = new GraphicsDeviceManager(this);
@@ -18,6 +20,7 @@ namespace HeroKnightGame
         {
             // TODO: Add your initialization logic here
             Globals.Content = Content;
+            _entityManager = new EntityManager();
 
             base.Initialize();
         }
@@ -35,6 +38,8 @@ namespace HeroKnightGame
                 Exit();
 
             // TODO: Add your update logic here
+            Globals.Update(gameTime);
+            _entityManager.Update();
 
             base.Update(gameTime);
         }
@@ -44,6 +49,8 @@ namespace HeroKnightGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            _entityManager.Draw();
 
             base.Draw(gameTime);
         }
