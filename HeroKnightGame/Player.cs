@@ -7,7 +7,7 @@ namespace HeroKnightGame
     {
         private Vector2 velocity;
         private const float Speed = 400;
-        private const float Gravity = 1400;
+        private const float Gravity = 1600;
         private const float Jump = 700;
         private bool _onground;
         
@@ -28,14 +28,18 @@ namespace HeroKnightGame
             if (KeyState.IsKeyDown(Keys.D)) velocity.X = Speed;
             if (KeyState.IsKeyDown(Keys.A)) velocity.X = -Speed;
 
-            if (KeyState.IsKeyDown(Keys.Space) && _onground) velocity.Y = -Jump;
+            if (KeyState.IsKeyDown(Keys.Space) && _onground)
+            {
+                velocity.Y = -Jump;
+                _onground = false;
+            }
 
             velocity.Y += Gravity * Globals.Time; 
         }
 
         public void UpdatePosition()
         {
-            _onground = false;
+            
             Vector2 newPos = _position + velocity * Globals.Time;
             Rectangle newRect;
 
