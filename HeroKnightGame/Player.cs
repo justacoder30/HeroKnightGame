@@ -19,7 +19,7 @@ namespace HeroKnightGame
             return new((int)pos.X, (int)pos.Y, _texture.Width, _texture.Height);
         }
 
-        public void UpdateVelocity()
+        private void UpdateVelocity()
         {
             var KeyState = Keyboard.GetState();
 
@@ -37,7 +37,7 @@ namespace HeroKnightGame
             velocity.Y += Gravity * Globals.Time; 
         }
 
-        public void UpdatePosition()
+        private void UpdatePosition()
         {
             
             Vector2 newPos = Position + velocity * Globals.Time;
