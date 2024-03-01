@@ -6,10 +6,11 @@ namespace HeroKnightGame
     public class Player : Sprite
     {
         private Vector2 velocity;
-        private const float Speed = 400;
-        private const float Gravity = 1600;
-        private const float Jump = 700;
-        private bool _onground;
+        private Vector2 newVelocity;
+        private const float Speed = 400f;
+        private const float Gravity = 1600f;
+        private const float Jump = 700f;
+        private bool _falling = true;
         
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -17,6 +18,32 @@ namespace HeroKnightGame
         private Rectangle CalculateBounds(Vector2 pos)
         {
             return new((int)pos.X, (int)pos.Y, _texture.Width, _texture.Height);
+        }
+
+        private void ApplyGravity()
+        {
+            newVelocity = new Vector2();
+            newVelocity.Y = velocity.Y + Gravity * Globals.Time;
+            Vector2 newPos = Position + newVelocity * Globals.Time;
+
+            foreach (var collider in Map.GetCollision())
+            {
+                if (newPos.Y != Position.Y)
+                {
+                    var newRect = CalculateBounds(new(Position.X, newPos.Y));
+                    if (newRect.Intersects(collider))
+                    {
+                        if (newVelocity.Y > 0)
+                        {
+                            velocity.Y = 0;
+                            _falling = false;
+                            return;
+                        }
+                    }
+                }
+            }
+
+            velocity.Y += Gravity * Globals.Time;
         }
 
         private void UpdateVelocity()
@@ -28,13 +55,14 @@ namespace HeroKnightGame
             if (KeyState.IsKeyDown(Keys.D)) velocity.X = Speed;
             if (KeyState.IsKeyDown(Keys.A)) velocity.X = -Speed;
 
-            if (KeyState.IsKeyDown(Keys.Space) && _onground)
+            if (KeyState.IsKeyDown(Keys.Space) && !_falling)
             {
                 velocity.Y = -Jump;
-                _onground = false;
+                _falling = true;
             }
 
-            velocity.Y += Gravity * Globals.Time; 
+            ApplyGravity();
+            //velocity.Y += Gravity * Globals.Time; 
         }
 
         private void UpdatePosition()
@@ -55,21 +83,24 @@ namespace HeroKnightGame
                         continue;
                     }
                 }
-                newRect = CalculateBounds(new(Position.X, newPos.Y));
-                if (newRect.Intersects(collider))
+                if (newPos.Y != Position.Y)
                 {
-                    if (velocity.Y > 0)
+                    newRect = CalculateBounds(new(Position.X, newPos.Y));
+                    if (newRect.Intersects(collider))
                     {
-                        newPos.Y = collider.Top - _texture.Height;
-                        _onground = true;
-                        velocity.Y = 0;
+                        if (velocity.Y > 0)
+                        {
+                            newPos.Y = collider.Top - _texture.Height;
+                            _falling = false;
+                            velocity.Y = 0;
+                        }
+                        else
+                        {
+                            newPos.Y = collider.Bottom;
+                            velocity.Y = 0;
+                        }
                     }
-                    else  
-                    {
-                        newPos.Y = collider.Bottom;
-                        velocity.Y = 0;
-                    }
-                }
+                }  
             }
             Position = newPos; 
         }
