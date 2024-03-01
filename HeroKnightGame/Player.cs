@@ -44,6 +44,7 @@ namespace HeroKnightGame
             }
 
             velocity.Y += Gravity * Globals.Time;
+            _falling = true;
         }
 
         private void UpdateVelocity()
