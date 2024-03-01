@@ -5,18 +5,20 @@ namespace HeroKnightGame
 {
     public class Sprite
     {
-        public Texture2D _texture;
-        public Vector2 _position;
+        protected Texture2D _texture;
+        public Vector2 Position { get; set; }
 
-        public Sprite(Texture2D texture, Vector2 position)
+        protected Sprite(Texture2D texture, Vector2 position)
         {
             _texture = texture;
-            _position = position;
+            Position = position;
         }
+
+        protected Sprite() { }
         
         public void Draw()
         {
-            Globals.SpriteBatch.Draw(_texture, _position, Color.White);
+            Globals.SpriteBatch.Draw(_texture, Position, Color.White);
         }
     }
 }

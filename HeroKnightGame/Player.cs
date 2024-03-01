@@ -40,22 +40,22 @@ namespace HeroKnightGame
         public void UpdatePosition()
         {
             
-            Vector2 newPos = _position + velocity * Globals.Time;
+            Vector2 newPos = Position + velocity * Globals.Time;
             Rectangle newRect;
 
             foreach (var collider in Map.GetCollision())
             {
-                if (newPos.X != _position.X)
+                if (newPos.X != Position.X)
                 {
-                    newRect = CalculateBounds(new(newPos.X, _position.Y));
+                    newRect = CalculateBounds(new(newPos.X, Position.Y));
                     if (newRect.Intersects(collider))
                     {
-                        if (newPos.X > _position.X) newPos.X = collider.Left - _texture.Width + 0;
+                        if (newPos.X > Position.X) newPos.X = collider.Left - _texture.Width + 0;
                         else newPos.X = collider.Right - 0;
                         continue;
                     }
                 }
-                newRect = CalculateBounds(new(_position.X, newPos.Y));
+                newRect = CalculateBounds(new(Position.X, newPos.Y));
                 if (newRect.Intersects(collider))
                 {
                     if (velocity.Y > 0)
@@ -71,7 +71,7 @@ namespace HeroKnightGame
                     }
                 }
             }
-            _position = newPos; 
+            Position = newPos; 
         }
 
         public void Update()
