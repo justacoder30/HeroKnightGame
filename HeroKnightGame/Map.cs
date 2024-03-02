@@ -12,9 +12,9 @@ namespace HeroKnightGame
         public static float MapWidth;
         public static float MapHeight;
         public static int TILES_SIZE;
-        private TiledMap map;
         private static TiledLayer collision;
-        Texture2D _texture;
+        private TiledMap map;
+        private Texture2D _texture;
 
         public Map()
         {

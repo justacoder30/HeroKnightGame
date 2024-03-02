@@ -51,7 +51,7 @@ namespace HeroKnightGame
         {
             var KeyState = Keyboard.GetState();
 
-            velocity.X = 0;
+            velocity.X *= 0.9f;
 
             if (KeyState.IsKeyDown(Keys.D)) velocity.X = Speed;
             if (KeyState.IsKeyDown(Keys.A)) velocity.X = -Speed;
