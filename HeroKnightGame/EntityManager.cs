@@ -14,7 +14,7 @@ namespace HeroKnightGame
         {
             _render = new Renderer();
             _map = new Map();
-            _player = new Player(Globals.Content.Load<Texture2D>("player"), new(100, 1100));
+            _player = new Player(new(100, 1100));
             _render.SetResolution(1920, 1080);
             _camera = new Camera();
         }

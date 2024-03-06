@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace HeroKnightGame
 {
     public class Player : Sprite
@@ -11,13 +14,31 @@ namespace HeroKnightGame
         private const float Gravity = 1600f;
         private const float Jump = 700f;
         private bool _falling = true;
-        
+        private int _texture_Width;
+        private int _texture_Height;
+
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
 
+        public Player(Vector2 postion)
+        {
+            Position = postion;
+
+            _animations = new Dictionary<string, Animation>();
+            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Idle"), 11));
+            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Run"), 12));
+            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Jump"), 1));
+            _animations.Add("Fall", new Animation(Globals.Content.Load<Texture2D>("Fall"), 1));
+
+            _animationManager = new AnimationManager(_animations.First().Value);
+
+            _texture_Width = _animationManager.Animation.FrameWidth;
+            _texture_Height = _animationManager.Animation.FrameHeight;
+        }
+
         private Rectangle CalculateBounds(Vector2 pos)
         {
-            return new((int)pos.X, (int)pos.Y, _texture.Width, _texture.Height);
+            return new((int)pos.X, (int)pos.Y, _texture_Width, _texture_Height);
         }
 
         private void ApplyGravity()
@@ -79,7 +100,7 @@ namespace HeroKnightGame
                     newRect = CalculateBounds(new(newPos.X, Position.Y));
                     if (newRect.Intersects(collider))
                     {
-                        if (newPos.X > Position.X) newPos.X = collider.Left - _texture.Width + 0;
+                        if (newPos.X > Position.X) newPos.X = collider.Left - _texture_Width + 0;
                         else newPos.X = collider.Right - 0;
                         continue;
                     }
@@ -91,7 +112,7 @@ namespace HeroKnightGame
                     {
                         if (velocity.Y > 0)
                         {
-                            newPos.Y = collider.Top - _texture.Height;
+                            newPos.Y = collider.Top - _texture_Height;
                             _falling = false;
                             velocity.Y = 0;
                         }
@@ -106,10 +127,29 @@ namespace HeroKnightGame
             Position = newPos; 
         }
 
+        private void SetAnimtion()
+        {
+            _animationManager.Play(_animations["Idle"]);
+        }
+
         public void Update()
         {
             UpdateVelocity();
             UpdatePosition();
+            SetAnimtion();
+            _animationManager.Update();
+        }
+
+        public new void Draw()
+        {
+            Globals.SpriteBatch.Draw(_animationManager.Animation.Texture,
+                                    Position,
+                                    new Rectangle(_animationManager.Animation.FrameWidth * _animationManager.Animation.CurrentFrame,
+                                                0,
+                                                _animationManager.Animation.FrameWidth,
+                                                _animationManager.Animation.FrameHeight),
+                                                Color.White
+                                    );
         }
     }
 }
