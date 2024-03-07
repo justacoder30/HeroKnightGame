@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,9 +11,11 @@ namespace HeroKnightGame
     {
         private Vector2 velocity;
         private Vector2 newVelocity;
-        private const float Speed = 400f;
-        private const float Gravity = 1600f;
-        private const float Jump = 700f;
+        private PlayerState _player;
+        private SpriteEffects _effect = SpriteEffects.None;
+        private const float Speed = 300f;
+        private const float Gravity = 1000f;
+        private const float Jump = 550f;
         private bool _falling = true;
         private int _texture_Width;
         private int _texture_Height;
@@ -65,7 +68,7 @@ namespace HeroKnightGame
             }
 
             velocity.Y += Gravity * Globals.Time;
-            _falling = true;
+            //_falling = true;
         }
 
         private void UpdateVelocity()
@@ -74,8 +77,14 @@ namespace HeroKnightGame
 
             velocity.X *= 0.9f;
 
-            if (KeyState.IsKeyDown(Keys.D)) velocity.X = Speed;
-            if (KeyState.IsKeyDown(Keys.A)) velocity.X = -Speed;
+            if (KeyState.IsKeyDown(Keys.D)) 
+            {
+                velocity.X = Speed;
+            }
+            if (KeyState.IsKeyDown(Keys.A))
+            {
+                velocity.X = -Speed;
+            }
 
             if (KeyState.IsKeyDown(Keys.Space) && !_falling)
             {
@@ -127,9 +136,55 @@ namespace HeroKnightGame
             Position = newPos; 
         }
 
+        private void UpdateAnimation()
+        { 
+            _player = PlayerState.Idle;
+            if(velocity.Y == 0 )
+            {
+                if (velocity.X == Speed)
+                {
+                    _player = PlayerState.Run;
+                    _effect = SpriteEffects.None;
+                }
+                else if (velocity.X == -Speed)
+                {
+                    _player = PlayerState.Run;
+                    _effect = SpriteEffects.FlipHorizontally;
+                }
+                if (velocity.X < Speed && velocity.X > 0 || velocity.X > -Speed && velocity.X < 0) 
+                {
+                    _player = PlayerState.Idle;
+                }
+            }
+            else
+            {
+                if (velocity.X > 0) _effect = SpriteEffects.None;
+                if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
+                if (velocity.Y > 0) _player = PlayerState.Fall;
+                if (velocity.Y < 0) _player = PlayerState.Jump;
+            }
+        }
+
         private void SetAnimtion()
         {
-            _animationManager.Play(_animations["Idle"]);
+            UpdateAnimation();
+
+            switch(_player)
+            {
+                case PlayerState.Idle:
+                    _animationManager.Play(_animations["Idle"]);
+                    break;
+                case PlayerState.Run:
+                    _animationManager.Play(_animations["Run"]);
+                    break;
+                case PlayerState.Jump:
+                    _animationManager.Play(_animations["Jump"]);
+                    break;
+                case PlayerState.Fall:
+                    _animationManager.Play(_animations["Fall"]);
+                    break;
+            }
+            
         }
 
         public void Update()
@@ -144,12 +199,20 @@ namespace HeroKnightGame
         {
             Globals.SpriteBatch.Draw(_animationManager.Animation.Texture,
                                     Position,
-                                    new Rectangle(_animationManager.Animation.FrameWidth * _animationManager.Animation.CurrentFrame,
-                                                0,
-                                                _animationManager.Animation.FrameWidth,
-                                                _animationManager.Animation.FrameHeight),
-                                                Color.White
+                                    _animationManager.Rect(),
+                                    Color.White,
+                                    0f,
+                                    Vector2.One,
+                                    1f,
+                                    _effect,
+                                    0f
                                     );
         }
     }
 }
+/*
+ * new Rectangle(_animationManager.Animation.FrameWidth * _animationManager.Animation.CurrentFrame,
+                                                0,
+                                                _animationManager.Animation.FrameWidth,
+                                                _animationManager.Animation.FrameHeight),
+ */

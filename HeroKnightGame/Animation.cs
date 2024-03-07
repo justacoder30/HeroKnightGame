@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace HeroKnightGame
@@ -16,7 +17,7 @@ namespace HeroKnightGame
         {
             Texture = texture;
             FrameCount = framecount;
-            FrameSpeed = 0.1f;
+            FrameSpeed = 0.05f;
         }
     }
 }
