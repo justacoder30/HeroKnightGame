@@ -13,7 +13,7 @@ namespace HeroKnightGame
         private Vector2 newVelocity;
         private PlayerState _player;
         private SpriteEffects _effect = SpriteEffects.None;
-        private const float Speed = 300f;
+        private const float Speed = 250f;
         private const float Gravity = 1000f;
         private const float Jump = 550f;
         private bool _falling = true;
@@ -75,7 +75,7 @@ namespace HeroKnightGame
         {
             var KeyState = Keyboard.GetState();
 
-            velocity.X *= 0.9f;
+            velocity.X *= 0.95f;
 
             if (KeyState.IsKeyDown(Keys.D)) 
             {
@@ -210,9 +210,3 @@ namespace HeroKnightGame
         }
     }
 }
-/*
- * new Rectangle(_animationManager.Animation.FrameWidth * _animationManager.Animation.CurrentFrame,
-                                                0,
-                                                _animationManager.Animation.FrameWidth,
-                                                _animationManager.Animation.FrameHeight),
- */
