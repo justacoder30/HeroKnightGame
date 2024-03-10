@@ -199,7 +199,7 @@ namespace HeroKnightGame
         {
             Globals.SpriteBatch.Draw(_animationManager.Animation.Texture,
                                     Position,
-                                    _animationManager.Rect(),
+                                    _animationManager.Rect,
                                     Color.White,
                                     0f,
                                     Vector2.One,

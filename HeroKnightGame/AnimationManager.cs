@@ -37,9 +37,9 @@ namespace HeroKnightGame
             }
         }
 
-        public Rectangle Rect()
+        public Rectangle Rect
         {
-            return new Rectangle(Animation.FrameWidth * Animation.CurrentFrame,
+            get => new Rectangle(Animation.FrameWidth * Animation.CurrentFrame,
                                  0,
                                  Animation.FrameWidth,
                                  Animation.FrameHeight);
