@@ -17,7 +17,7 @@ namespace HeroKnightGame
         {
             Texture = texture;
             FrameCount = framecount;
-            FrameSpeed = 0.05f;
+            FrameSpeed = 0.08f;
         }
     }
 }

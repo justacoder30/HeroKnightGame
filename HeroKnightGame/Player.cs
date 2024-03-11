@@ -19,6 +19,8 @@ namespace HeroKnightGame
         private bool _falling = true;
         private int _texture_Width;
         private int _texture_Height;
+        private const int OFFSET_Width = 15;
+        private const int OFFSET_Height = 7;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -28,10 +30,11 @@ namespace HeroKnightGame
             Position = postion;
 
             _animations = new Dictionary<string, Animation>();
-            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Idle"), 11));
-            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Run"), 12));
-            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Jump"), 1));
-            _animations.Add("Fall", new Animation(Globals.Content.Load<Texture2D>("Fall"), 1));
+            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Idle"), 5));
+            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Run"), 6));
+            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Jump"), 2));
+            _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Shoot"), 3));
+            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Death"), 8));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
@@ -41,7 +44,7 @@ namespace HeroKnightGame
 
         private Rectangle CalculateBounds(Vector2 pos)
         {
-            return new((int)pos.X, (int)pos.Y, _texture_Width, _texture_Height);
+            return new((int)pos.X + OFFSET_Width, (int)pos.Y + OFFSET_Height, _texture_Width - OFFSET_Width * 2, _texture_Height - OFFSET_Height);
         }
 
         private void ApplyGravity()
@@ -75,7 +78,7 @@ namespace HeroKnightGame
         {
             var KeyState = Keyboard.GetState();
 
-            velocity.X *= 0.95f;
+            velocity.X *= 0f;
 
             if (KeyState.IsKeyDown(Keys.D)) 
             {
@@ -109,8 +112,8 @@ namespace HeroKnightGame
                     newRect = CalculateBounds(new(newPos.X, Position.Y));
                     if (newRect.Intersects(collider))
                     {
-                        if (newPos.X > Position.X) newPos.X = collider.Left - _texture_Width + 0;
-                        else newPos.X = collider.Right - 0;
+                        if (newPos.X > Position.X) newPos.X = collider.Left - _texture_Width + OFFSET_Width;
+                        else newPos.X = collider.Right - OFFSET_Width;
                         continue;
                     }
                 }
@@ -127,7 +130,7 @@ namespace HeroKnightGame
                         }
                         else
                         {
-                            newPos.Y = collider.Bottom;
+                            newPos.Y = collider.Bottom + 0;
                             velocity.Y = 0;
                         }
                     }
@@ -139,17 +142,19 @@ namespace HeroKnightGame
         private void UpdateAnimation()
         { 
             _player = PlayerState.Idle;
-            if(velocity.Y == 0 )
+
+            if (velocity.X > 0) _effect = SpriteEffects.None;
+            if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
+
+            if (velocity.Y == 0 )
             {
                 if (velocity.X == Speed)
                 {
                     _player = PlayerState.Run;
-                    _effect = SpriteEffects.None;
                 }
                 else if (velocity.X == -Speed)
                 {
                     _player = PlayerState.Run;
-                    _effect = SpriteEffects.FlipHorizontally;
                 }
                 if (velocity.X < Speed && velocity.X > 0 || velocity.X > -Speed && velocity.X < 0) 
                 {
@@ -158,9 +163,7 @@ namespace HeroKnightGame
             }
             else
             {
-                if (velocity.X > 0) _effect = SpriteEffects.None;
-                if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
-                if (velocity.Y > 0) _player = PlayerState.Fall;
+                if (velocity.Y > 0) _player = PlayerState.Jump;
                 if (velocity.Y < 0) _player = PlayerState.Jump;
             }
         }
@@ -179,9 +182,6 @@ namespace HeroKnightGame
                     break;
                 case PlayerState.Jump:
                     _animationManager.Play(_animations["Jump"]);
-                    break;
-                case PlayerState.Fall:
-                    _animationManager.Play(_animations["Fall"]);
                     break;
             }
             
