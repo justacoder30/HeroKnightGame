@@ -8,7 +8,7 @@ namespace HeroKnightGame
     {
         private static RenderTarget2D _target;
         private static Rectangle Rectangle;
-        private static bool FullScreen = false;
+        private static bool FullScreen = true;
 
         public Renderer()
         {
@@ -33,6 +33,7 @@ namespace HeroKnightGame
         {
             Globals.Graphics.PreferredBackBufferWidth = height;
             Globals.Graphics.PreferredBackBufferHeight = width;
+            Globals.Graphics.IsFullScreen = FullScreen;
             Globals.Graphics.ApplyChanges();
             SetDestinationRectangle();
         }
