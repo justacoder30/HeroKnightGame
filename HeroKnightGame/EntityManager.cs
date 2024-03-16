@@ -30,7 +30,7 @@ namespace HeroKnightGame
         {
             _render.Activate();
             //transformMatrix: _camera.Traslation
-            Globals.SpriteBatch.Begin(transformMatrix: _camera.Traslation);
+            Globals.SpriteBatch.Begin(transformMatrix: _camera.Translation);
             _map.Draw();
             _player.Draw();
             Globals.SpriteBatch.End();
