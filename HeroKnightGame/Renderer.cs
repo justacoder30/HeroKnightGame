@@ -8,7 +8,7 @@ namespace HeroKnightGame
     {
         private static RenderTarget2D _target;
         private static Rectangle Rectangle;
-        private static bool FullScreen = true;
+        private static bool FullScreen = false;
 
         public Renderer()
         {

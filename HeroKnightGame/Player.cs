@@ -30,11 +30,16 @@ namespace HeroKnightGame
             Position = postion;
 
             _animations = new Dictionary<string, Animation>();
-            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Idle"), 5));
+            /*_animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Idle"), 5));
             _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Run"), 6));
             _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Jump"), 2));
             _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Shoot"), 3));
-            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Death"), 8));
+            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Death"), 8));*/
+
+            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player2/Idle"), 2));
+            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player2/Walk"), 8));
+            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player2/Jump"), 8));
+            _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Player2/Attack"), 7));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
