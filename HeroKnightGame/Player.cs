@@ -36,7 +36,7 @@ namespace HeroKnightGame
             _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Shoot"), 3));
             _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Death"), 8));*/
 
-            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player2/Idle"), 2));
+            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player2/Idle"), 2, 0.4f));
             _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player2/Walk"), 8));
             _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player2/Jump"), 8));
             _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Player2/Attack"), 7));

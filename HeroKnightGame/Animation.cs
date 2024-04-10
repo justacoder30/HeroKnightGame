@@ -13,11 +13,11 @@ namespace HeroKnightGame
         public int FrameWidth { get => Texture.Width / FrameCount; }
         public int FrameHeight { get => Texture.Height; }
 
-        public Animation(Texture2D texture, int framecount)
+        public Animation(Texture2D texture, int framecount, float frameSpeed = 0.1f)
         {
             Texture = texture;
             FrameCount = framecount;
-            FrameSpeed = 0.08f;
+            FrameSpeed = frameSpeed;
         }
     }
 }
