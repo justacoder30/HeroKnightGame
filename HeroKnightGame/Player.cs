@@ -38,7 +38,7 @@ namespace HeroKnightGame
 
             _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player2/Idle"), 4, 0.2f));
             _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player2/Walk"), 8));
-            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player2/Jump"), 8));
+            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player2/Jump"), 8, 0.12f));
             _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Player2/Attack"), 7));
 
             _animationManager = new AnimationManager(_animations.First().Value);
