@@ -19,7 +19,7 @@ namespace HeroKnightGame
         private bool _falling = true;
         private int _texture_Width;
         private int _texture_Height;
-        private const int OFFSET_Width = 15;
+        private const int OFFSET_Width = 11;
         private const int OFFSET_Height = 7;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
@@ -36,7 +36,7 @@ namespace HeroKnightGame
             _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Shoot"), 3));
             _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Death"), 8));*/
 
-            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player2/Idle"), 2, 0.4f));
+            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player2/Idle"), 4, 0.2f));
             _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player2/Walk"), 8));
             _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player2/Jump"), 8));
             _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Player2/Attack"), 7));

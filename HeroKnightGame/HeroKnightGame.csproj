@@ -11,6 +11,12 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Content\Player2\**" />
+    <EmbeddedResource Remove="Content\Player2\**" />
+    <None Remove="Content\Player2\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Content\Idle.png" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>

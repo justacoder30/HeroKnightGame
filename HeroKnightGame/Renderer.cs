@@ -52,6 +52,7 @@ namespace HeroKnightGame
 
         public void Draw()
         {
+            
             Globals.Graphics.GraphicsDevice.SetRenderTarget(null);
             Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
             Globals.SpriteBatch.Draw(_target, Rectangle, Color.White);

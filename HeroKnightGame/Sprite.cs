@@ -12,7 +12,7 @@ namespace HeroKnightGame
         protected Texture2D _texture;
         public Vector2 Position { get; set; }
 
-        protected Sprite(Texture2D texture, Vector2 position)
+        public Sprite(Texture2D texture, Vector2 position)
         {
             _texture = texture;
             Position = position;

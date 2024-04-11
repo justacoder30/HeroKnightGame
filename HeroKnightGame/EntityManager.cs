@@ -9,6 +9,7 @@ namespace HeroKnightGame
         private Player _player;
         private Map _map;
         private Camera _camera;
+        private Sprite _backGround;
 
         public EntityManager()
         {
@@ -17,6 +18,7 @@ namespace HeroKnightGame
             _player = new Player(new(100, 1100));
             _render.SetResolution(1920, 1080);
             _camera = new Camera();
+            _backGround = new Sprite(Globals.Content.Load<Texture2D>("Background"), new(0, 0));
         }
 
         public void Update()
@@ -28,7 +30,11 @@ namespace HeroKnightGame
 
         public void Draw()
         {
+            
             _render.Activate();
+            Globals.SpriteBatch.Begin();
+            _backGround.Draw();
+            Globals.SpriteBatch.End();
             //transformMatrix: _camera.Traslation
             Globals.SpriteBatch.Begin(transformMatrix: _camera.Translation);
             _map.Draw();
