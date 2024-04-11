@@ -47,7 +47,6 @@ namespace HeroKnightGame
         {
             Globals.Graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             Globals.Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            //Globals.Graphics.HardwareModeSwitch = false;
             Globals.Graphics.IsFullScreen = FullScreen;
             Globals.Graphics.ApplyChanges();
             SetDestinationRectangle();
@@ -57,7 +56,6 @@ namespace HeroKnightGame
         {
             Globals.Graphics.PreferredBackBufferWidth = _width;
             Globals.Graphics.PreferredBackBufferHeight = _height;
-            //Globals.Graphics.HardwareModeSwitch = false;
             Globals.Graphics.IsFullScreen = FullScreen;
             Globals.Graphics.ApplyChanges();
             SetDestinationRectangle();
@@ -66,14 +64,9 @@ namespace HeroKnightGame
         public static void FullScreenToggle()
         {
             FullScreen = !FullScreen;
-            if (FullScreen)
-            {
-                SetFullScreen();
-            }
-            else
-            {
-                UnsetFullScreen();
-            }
+            if (FullScreen) SetFullScreen();
+            else UnsetFullScreen();
+
         }
 
         public void Activate()
@@ -83,7 +76,6 @@ namespace HeroKnightGame
 
         public void Draw()
         {
-            
             Globals.Graphics.GraphicsDevice.SetRenderTarget(null);
             Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
             Globals.SpriteBatch.Draw(_target, Rectangle, Color.White);
