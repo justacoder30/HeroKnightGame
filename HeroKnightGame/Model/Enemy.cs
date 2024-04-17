@@ -35,9 +35,9 @@ namespace HeroKnightGame.Model
             _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Shoot"), 3));
             _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Death"), 8));*/
 
-            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy/Idle"), 11));
-            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Enemy/Walk"), 13));
-            _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Enemy/Attack"), 18));
+            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy/Idle"), 4, 0.2f));
+            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Enemy/Walk"), 4));
+            _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Enemy/Attack"), 8));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
