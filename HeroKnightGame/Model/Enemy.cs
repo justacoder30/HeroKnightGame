@@ -36,8 +36,8 @@ namespace HeroKnightGame.Model
             _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Death"), 8));*/
 
             _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy/Idle"), 4, 0.2f));
-            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Enemy/Walk"), 4));
-            _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Enemy/Attack"), 8));
+            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Enemy/Walk"), 4, 0.2f));
+            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Enemy/Attack"), 8));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
@@ -68,7 +68,7 @@ namespace HeroKnightGame.Model
 
         private void UpdateAnimation()
         {
-            _enemy = CharacterState.Idle;
+            _enemy = CharacterState.Attack;
 
             if (velocity.X > 0) _effect = SpriteEffects.None;
             if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
@@ -101,6 +101,9 @@ namespace HeroKnightGame.Model
                     break;
                 case CharacterState.Run:
                     _animationManager.Play(_animations["Run"]);
+                    break;
+                case CharacterState.Attack:
+                    _animationManager.Play(_animations["Attack"]);
                     break;
             }
 

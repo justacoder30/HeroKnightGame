@@ -7,6 +7,7 @@ namespace HeroKnightGame
         Idle,
         Run,
         Jump,
-        Fall
+        Fall,
+        Attack
     }
 }
