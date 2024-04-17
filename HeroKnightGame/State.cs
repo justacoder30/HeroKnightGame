@@ -2,7 +2,7 @@
 
 namespace HeroKnightGame
 {
-    public enum PlayerState
+    public enum CharacterState
     {
         Idle,
         Run,

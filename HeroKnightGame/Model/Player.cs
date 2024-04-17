@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HeroKnightGame.Model;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -11,9 +12,9 @@ namespace HeroKnightGame
     {
         private Vector2 velocity;
         private Vector2 newVelocity;
-        private PlayerState _player;
+        private CharacterState _player;
         private SpriteEffects _effect = SpriteEffects.None;
-        private const float Speed = 250f;
+        private const float Speed = 200f;
         private const float Gravity = 1000f;
         private const float Jump = 550f;
         private bool _falling = true;
@@ -146,7 +147,7 @@ namespace HeroKnightGame
 
         private void UpdateAnimation()
         { 
-            _player = PlayerState.Idle;
+            _player = CharacterState.Idle;
 
             if (velocity.X > 0) _effect = SpriteEffects.None;
             if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
@@ -155,21 +156,21 @@ namespace HeroKnightGame
             {
                 if (velocity.X == Speed)
                 {
-                    _player = PlayerState.Run;
+                    _player = CharacterState.Run;
                 }
                 else if (velocity.X == -Speed)
                 {
-                    _player = PlayerState.Run;
+                    _player = CharacterState.Run;
                 }
                 if (velocity.X < Speed && velocity.X > 0 || velocity.X > -Speed && velocity.X < 0) 
                 {
-                    _player = PlayerState.Idle;
+                    _player = CharacterState.Idle;
                 }
             }
             else
             {
-                if (velocity.Y > 0) _player = PlayerState.Jump;
-                if (velocity.Y < 0) _player = PlayerState.Jump;
+                if (velocity.Y > 0) _player = CharacterState.Jump;
+                if (velocity.Y < 0) _player = CharacterState.Jump;
             }
         }
 
@@ -179,13 +180,13 @@ namespace HeroKnightGame
 
             switch(_player)
             {
-                case PlayerState.Idle:
+                case CharacterState.Idle:
                     _animationManager.Play(_animations["Idle"]);
                     break;
-                case PlayerState.Run:
+                case CharacterState.Run:
                     _animationManager.Play(_animations["Run"]);
                     break;
-                case PlayerState.Jump:
+                case CharacterState.Jump:
                     _animationManager.Play(_animations["Jump"]);
                     break;
             }
