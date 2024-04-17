@@ -8,7 +8,7 @@ namespace HeroKnightGame
     {
         private static RenderTarget2D _target;
         private static Rectangle Rectangle;
-        private static bool FullScreen = true;
+        private static bool FullScreen = false;
         private static int _width;
         private static int _height;    
 
@@ -38,9 +38,8 @@ namespace HeroKnightGame
         {
             _width = width;
             _height = height;
-            Globals.Graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            Globals.Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            Globals.Graphics.HardwareModeSwitch = false;
+            Globals.Graphics.PreferredBackBufferWidth = _width;
+            Globals.Graphics.PreferredBackBufferHeight = _height;
             Globals.Graphics.IsFullScreen = FullScreen;
             Globals.Graphics.ApplyChanges();
             SetDestinationRectangle();
@@ -50,6 +49,7 @@ namespace HeroKnightGame
         {
             Globals.Graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             Globals.Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            Globals.Graphics.HardwareModeSwitch = false;
             Globals.Graphics.IsFullScreen = FullScreen;
             Globals.Graphics.ApplyChanges();
             SetDestinationRectangle();

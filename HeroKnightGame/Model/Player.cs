@@ -20,8 +20,10 @@ namespace HeroKnightGame
         private bool _falling = true;
         private int _texture_Width;
         private int _texture_Height;
-        private const int OFFSET_Width = 11;
-        private const int OFFSET_Height = 7;
+        private const int OFFSET_Width = 52;
+        private const int OFFSET_Height = 42;
+        private KeyboardState _currentKeySate;
+        private KeyboardState _prevKeySate;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -31,16 +33,12 @@ namespace HeroKnightGame
             Position = postion;
 
             _animations = new Dictionary<string, Animation>();
-            /*_animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Idle"), 5));
-            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Run"), 6));
-            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Jump"), 2));
-            _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Shoot"), 3));
-            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Death"), 8));*/
 
-            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player2/Idle"), 4, 0.2f));
-            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player2/Walk"), 8));
-            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player2/Jump"), 8, 0.12f));
-            _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Player2/Attack"), 7));
+            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player1/Idle"), 10));
+            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player1/Run"), 10));
+            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player1/Jump"), 3));
+            _animations.Add("Fall", new Animation(Globals.Content.Load<Texture2D>("Player1/Fall"), 3));
+            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Player1/Attack"), 6, 0.05f));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
@@ -101,6 +99,15 @@ namespace HeroKnightGame
                 _falling = true;
             }
 
+            _prevKeySate = _currentKeySate;
+            _currentKeySate = Keyboard.GetState();
+
+            if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyUp(Keys.J))
+            {
+                _player = CharacterState.Attack;
+                _animationManager.IsAnimationRunning = true;
+            }
+
             ApplyGravity();
             //velocity.Y += Gravity * Globals.Time; 
         }
@@ -136,7 +143,7 @@ namespace HeroKnightGame
                         }
                         else
                         {
-                            newPos.Y = collider.Bottom + 0;
+                            newPos.Y = collider.Bottom - OFFSET_Height;
                             velocity.Y = 0;
                         }
                     }
@@ -146,32 +153,24 @@ namespace HeroKnightGame
         }
 
         private void UpdateAnimation()
-        { 
-            _player = CharacterState.Idle;
-
+        {
             if (velocity.X > 0) _effect = SpriteEffects.None;
             if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
 
-            if (velocity.Y == 0 )
+            if (velocity.Y == 0)
             {
-                if (velocity.X == Speed)
+                if (velocity.X != 0)
                 {
                     _player = CharacterState.Run;
                 }
-                else if (velocity.X == -Speed)
+                else if (velocity.X == 0)
                 {
-                    _player = CharacterState.Run;
-                }
-                if (velocity.X < Speed && velocity.X > 0 || velocity.X > -Speed && velocity.X < 0) 
-                {
-                    _player = CharacterState.Idle;
+                    if (_animationManager.IsAnimationRunning) _player = CharacterState.Attack;
+                    else _player = CharacterState.Idle;
                 }
             }
-            else
-            {
-                if (velocity.Y > 0) _player = CharacterState.Jump;
-                if (velocity.Y < 0) _player = CharacterState.Jump;
-            }
+            else if (velocity.Y < 0) _player = CharacterState.Jump;
+            else if (velocity.Y > 0) _player = CharacterState.Fall;
         }
 
         private void SetAnimtion()
@@ -188,6 +187,12 @@ namespace HeroKnightGame
                     break;
                 case CharacterState.Jump:
                     _animationManager.Play(_animations["Jump"]);
+                    break;
+                case CharacterState.Fall:
+                    _animationManager.Play(_animations["Fall"]);
+                    break;
+                case CharacterState.Attack:
+                    _animationManager.Play(_animations["Attack"]);
                     break;
             }
             

@@ -7,6 +7,7 @@ namespace HeroKnightGame
     {
         private float _timer;
         public Animation Animation { get; set; }
+        public bool IsAnimationRunning { get; set; }
 
         public AnimationManager(Animation animation)
         {
@@ -18,7 +19,7 @@ namespace HeroKnightGame
             if (Animation == animation) return;
             Animation = animation;
             Animation.CurrentFrame = 0;
-            _timer = 0; 
+            _timer = 0;
         }
 
         public void Update()
@@ -33,6 +34,7 @@ namespace HeroKnightGame
                 if(Animation.CurrentFrame >= Animation.FrameCount)
                 {
                     Animation.CurrentFrame = 0;
+                    IsAnimationRunning = false;
                 }
             }
         }
