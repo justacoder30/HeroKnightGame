@@ -29,11 +29,6 @@ namespace HeroKnightGame.Model
             Position = postion;
 
             _animations = new Dictionary<string, Animation>();
-            /*_animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Idle"), 5));
-            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Run"), 6));
-            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Jump"), 2));
-            _animations.Add("Shoot", new Animation(Globals.Content.Load<Texture2D>("Shoot"), 3));
-            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Death"), 8));*/
 
             _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy/Idle"), 4, 0.2f));
             _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Enemy/Walk"), 4, 0.2f));
@@ -69,24 +64,16 @@ namespace HeroKnightGame.Model
         private void UpdateAnimation()
         {
             _enemy = CharacterState.Attack;
-
-            if (velocity.X > 0) _effect = SpriteEffects.None;
-            if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
-
-            if (velocity.Y == 0)
+            
+            if (velocity.X != 0)
             {
-                if (velocity.X == Speed)
-                {
-                    _enemy = CharacterState.Run;
-                }
-                else if (velocity.X == -Speed)
-                {
-                    _enemy = CharacterState.Run;
-                }
-                if (velocity.X < Speed && velocity.X > 0 || velocity.X > -Speed && velocity.X < 0)
-                {
-                    _enemy = CharacterState.Idle;
-                }
+                if (velocity.X > 0) _effect = SpriteEffects.None;
+                if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
+                _enemy = CharacterState.Run;
+            }
+            else if (velocity.X == 0)
+            {
+                _enemy = CharacterState.Idle;
             }
         }
 
