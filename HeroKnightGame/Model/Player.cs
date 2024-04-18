@@ -35,7 +35,7 @@ namespace HeroKnightGame
             _animations = new Dictionary<string, Animation>();
 
             _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player1/Idle"), 10));
-            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player1/Run"), 10));
+            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player1/Run"), 10, 0.06f));
             _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player1/Jump"), 3));
             _animations.Add("Fall", new Animation(Globals.Content.Load<Texture2D>("Player1/Fall"), 3));
             _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Player1/Attack"), 6, 0.05f));
@@ -154,13 +154,12 @@ namespace HeroKnightGame
 
         private void UpdateAnimation()
         {
-            if (velocity.X > 0) _effect = SpriteEffects.None;
-            if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
-
             if (velocity.Y == 0)
             {
                 if (velocity.X != 0)
                 {
+                    if (velocity.X > 0) _effect = SpriteEffects.None;
+                    if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
                     _player = CharacterState.Run;
                 }
                 else if (velocity.X == 0)
