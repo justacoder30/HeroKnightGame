@@ -20,6 +20,7 @@ namespace HeroKnightGame
             Animation = animation;
             Animation.CurrentFrame = 0;
             _timer = 0;
+            //IsAnimationRunning = Animation.IsAnimationRunning;
         }
 
         public void Update()

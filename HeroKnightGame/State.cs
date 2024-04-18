@@ -6,6 +6,7 @@ namespace HeroKnightGame
     {
         Idle,
         Run,
+        Walk,
         Jump,
         Fall,
         Attack

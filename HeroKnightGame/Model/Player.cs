@@ -14,7 +14,7 @@ namespace HeroKnightGame
         private Vector2 newVelocity;
         private CharacterState _player;
         private SpriteEffects _effect = SpriteEffects.None;
-        private const float Speed = 200f;
+        private const float Speed = 180f;
         private const float Gravity = 1000f;
         private const float Jump = 550f;
         private bool _falling = true;
@@ -99,14 +99,7 @@ namespace HeroKnightGame
                 _falling = true;
             }
 
-            _prevKeySate = _currentKeySate;
-            _currentKeySate = Keyboard.GetState();
-
-            if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyUp(Keys.J))
-            {
-                _player = CharacterState.Attack;
-                _animationManager.IsAnimationRunning = true;
-            }
+            
 
             ApplyGravity();
             //velocity.Y += Gravity * Globals.Time; 
@@ -154,17 +147,24 @@ namespace HeroKnightGame
 
         private void UpdateAnimation()
         {
+            var KeyState = Keyboard.GetState();
+
+            if (velocity.X > 0) _effect = SpriteEffects.None;
+            else if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
+
             if (velocity.Y == 0)
             {
                 if (velocity.X != 0)
-                {
-                    if (velocity.X > 0) _effect = SpriteEffects.None;
-                    if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
+                { 
                     _player = CharacterState.Run;
                 }
                 else if (velocity.X == 0)
                 {
-                    if (_animationManager.IsAnimationRunning) _player = CharacterState.Attack;
+                    if (KeyState.IsKeyDown(Keys.J) || _animationManager.IsAnimationRunning)
+                    {
+                        _player = CharacterState.Attack;
+                        _animationManager.IsAnimationRunning = true;
+                    }
                     else _player = CharacterState.Idle;
                 }
             }
