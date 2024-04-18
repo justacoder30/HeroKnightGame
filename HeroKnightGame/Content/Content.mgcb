@@ -25,54 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:Background.png
 
-#begin E:/Download/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/Player/Death.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:E:/Download/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/Player/Death.png;Player1/Death.png
-
-#begin E:/Download/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/Player/Idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:E:/Download/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/Player/Idle.png;Player1/Idle.png
-
-#begin E:/Download/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/Player/Jump.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:E:/Download/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/Player/Jump.png;Player1/Jump.png
-
-#begin E:/Download/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/Player/Run.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:E:/Download/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/Player/Run.png;Player1/Run.png
-
 #begin Enemy/Attack.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -133,6 +85,18 @@
 /processorParam:TextureFormat=Color
 /build:Player1/Attack.png
 
+#begin Player1/Death.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Player1/Death.png
+
 #begin Player1/Fall.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -144,6 +108,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Player1/Fall.png
+
+#begin Player1/Idle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Player1/Idle.png
+
+#begin Player1/Jump.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Player1/Jump.png
+
+#begin Player1/Run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Player1/Run.png
 
 #begin Player2/Attack.png
 /importer:TextureImporter
