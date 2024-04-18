@@ -38,7 +38,7 @@ namespace HeroKnightGame
             _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player1/Run"), 10, 0.06f));
             _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player1/Jump"), 3));
             _animations.Add("Fall", new Animation(Globals.Content.Load<Texture2D>("Player1/Fall"), 3));
-            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Player1/Attack"), 6, 0.05f));
+            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Player1/Attack"), 6, 0.05f, true));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
@@ -126,6 +126,18 @@ namespace HeroKnightGame
                 if (newPos.Y != Position.Y)
                 {
                     newRect = CalculateBounds(new(Position.X, newPos.Y));
+
+                    /*if (velocity.Y > 0)
+                    {
+                        if (newRect.Intersects(collider))
+                        {
+                            newPos.Y = collider.Top - _texture_Height;
+                            _falling = false;
+                            velocity.Y = 0;
+                        }
+
+                    }*/
+
                     if (newRect.Intersects(collider))
                     {
                         if (velocity.Y > 0)

@@ -12,12 +12,14 @@ namespace HeroKnightGame
         public float FrameSpeed { get; set; }
         public int FrameWidth { get => Texture.Width / FrameCount; }
         public int FrameHeight { get => Texture.Height; }
+        public bool IsAnimationRunning { get; set; }
 
-        public Animation(Texture2D texture, int framecount, float frameSpeed = 0.08f)
+        public Animation(Texture2D texture, int framecount, float frameSpeed = 0.08f, bool isAnimationRunning = false)
         {
             Texture = texture;
             FrameCount = framecount;
             FrameSpeed = frameSpeed;
+            IsAnimationRunning = isAnimationRunning;
         }
 
 
