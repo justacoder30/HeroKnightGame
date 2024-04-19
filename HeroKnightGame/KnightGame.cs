@@ -19,7 +19,7 @@ namespace HeroKnightGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Globals.WindowSize = new Point(640, 360);
+            Globals.WindowSize = new Point(480, 270);
 
             Globals.Content = Content;
             _entityManager = new EntityManager();

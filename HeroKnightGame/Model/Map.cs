@@ -12,30 +12,54 @@ namespace HeroKnightGame
         public static float MapWidth;
         public static float MapHeight;
         public static int TILES_SIZE;
-        private static TiledLayer collision;
+        public static List<Rectangle> GetHolderCollision;
+        public static List<Rectangle> GetMapCollision;
+        public static Vector2 GetPlayerPosition;
+        private TiledLayer _mapCollision;
+        private TiledLayer _holderCollision;
         private TiledMap map;
         private Texture2D _texture;
 
         public Map()
         {
-            _texture = Globals.Content.Load<Texture2D>("map");
+            _texture = Globals.Content.Load<Texture2D>("Map/Dungeon Map");
+
             MapWidth = _texture.Width;
             MapHeight = _texture.Height;
-            map = new TiledMap("Content/map.tmx");
-            collision = map.Layers.First(l => l.name == "Object Layer 1");    
+
+            map = new TiledMap("Content/Map/Map.tmx");
+
+            _mapCollision = map.Layers.First(m => m.name == "MapCollider");
+            _holderCollision = map.Layers.First(h => h.name == "HolderCollider");
+            TiledLayer _playerPos = map.Layers.First(p => p.name == "PlayerPosition");
+
+            GetMapCollision = new List<Rectangle>();
+            GetHolderCollision = new List<Rectangle>();
+
+            GetPlayerPosition = new Vector2(_playerPos.objects[0].x, _playerPos.objects[0].y);
+
+            foreach (var obj in _mapCollision.objects)
+            {
+                GetMapCollision.Add(new Rectangle((int)obj.x, (int)obj.y, (int)obj.width, (int)obj.height));
+            }
+
+            foreach (var obj in _holderCollision.objects)
+            {
+                GetHolderCollision.Add(new Rectangle((int)obj.x, (int)obj.y, (int)obj.width, (int)obj.height));
+            }
         }
 
-        public static List<Rectangle> GetCollision()
+        /*public static List<Rectangle> GetMapCollision()
         {
             List<Rectangle> result = new List<Rectangle>();
 
-            foreach(var obj in collision.objects)
+            foreach(var obj in _mapCollision.objects)
             {
                 result.Add(new Rectangle((int)obj.x,(int)obj.y, (int)obj.width, (int)obj.height));
             }
 
             return result;
-        }
+        }*/
 
         public void Draw()
         {

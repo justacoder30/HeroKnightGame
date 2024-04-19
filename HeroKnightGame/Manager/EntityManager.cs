@@ -17,7 +17,7 @@ namespace HeroKnightGame
         {
             _render = new Renderer();
             _map = new Map();
-            _player = new Player(new(100, 1050));
+            _player = new Player();
             _enemy = new Enemy(new (110, 1052));
             _render.SetResolution(1920, 1080);
             _camera = new Camera();
