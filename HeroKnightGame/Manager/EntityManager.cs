@@ -8,7 +8,7 @@ namespace HeroKnightGame
     {
         private Renderer _render;
         private Player _player;
-        private Enemy _enemy;
+        private EnemyManager _enemyManager;
         private Map _map;
         private Camera _camera;
         private Sprite _backGround;
@@ -18,8 +18,10 @@ namespace HeroKnightGame
             _render = new Renderer();
             _map = new Map();
             _player = new Player();
-            _enemy = new Enemy(new (110, 1052));
+            _enemyManager = new EnemyManager();
             _render.SetResolution(1920, 1080);
+            _render.SetResolution(1920, 1080);
+
             _camera = new Camera();
             _backGround = new Sprite(Globals.Content.Load<Texture2D>("Background"), new(0, 0));
         }
@@ -28,7 +30,7 @@ namespace HeroKnightGame
         {
             InputManager.Update();
             _player.Update();
-            _enemy.Update();    
+            _enemyManager.Update();    
             _camera.FollowPLayer(_player);
         }
 
@@ -42,7 +44,7 @@ namespace HeroKnightGame
             //transformMatrix: _camera.Traslation
             Globals.SpriteBatch.Begin(transformMatrix: _camera.Translation);
             _map.Draw();
-            _enemy.Draw();
+            _enemyManager.Draw();
             _player.Draw();
             Globals.SpriteBatch.End();
 

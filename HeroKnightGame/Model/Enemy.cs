@@ -18,21 +18,27 @@ namespace HeroKnightGame.Model
         private bool _falling = true;
         private int _texture_Width;
         private int _texture_Height;
-        private const int OFFSET_Width = 7;
-        private const int OFFSET_Height = 8;
+        private const int OFFSET_Width = 39;
+        private const int OFFSET_Height = 18;
 
         public Enemy(Texture2D texture, Vector2 position) : base(texture, position)
         { }
 
-        public Enemy(Vector2 postion)
+        public Enemy(Vector2 position)
         {
-            Position = postion;
+            Position = position;
 
             _animations = new Dictionary<string, Animation>();
 
-            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy/Idle"), 4, 0.2f));
+            /*_animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy/Idle"), 4, 0.2f));
             _animations.Add("Walk", new Animation(Globals.Content.Load<Texture2D>("Enemy/Walk"), 4, 0.2f));
-            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Enemy/Attack"), 8));
+            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Enemy/Attack"), 8));*/
+
+            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Idle"), 8));
+            _animations.Add("Walk", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Walk"), 4));
+            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Attack"), 10));
+            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Death"), 13));
+            _animations.Add("Hit", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Hit"), 5));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
@@ -63,7 +69,7 @@ namespace HeroKnightGame.Model
 
         private void UpdateAnimation()
         {
-            _enemy = CharacterState.Attack;
+            _enemy = CharacterState.Idle;
             
             /*if (velocity.X != 0)
             {

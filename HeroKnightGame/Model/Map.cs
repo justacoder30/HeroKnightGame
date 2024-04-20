@@ -14,10 +14,9 @@ namespace HeroKnightGame
         public static int TILES_SIZE;
         public static List<Rectangle> GetHolderCollision;
         public static List<Rectangle> GetMapCollision;
-        public static Vector2 GetPlayerPosition;
+        private static TiledMap map;
         private TiledLayer _mapCollision;
         private TiledLayer _holderCollision;
-        private TiledMap map;
         private Texture2D _texture;
 
         public Map()
@@ -31,12 +30,10 @@ namespace HeroKnightGame
 
             _mapCollision = map.Layers.First(m => m.name == "MapCollider");
             _holderCollision = map.Layers.First(h => h.name == "HolderCollider");
-            TiledLayer _playerPos = map.Layers.First(p => p.name == "PlayerPosition");
+            
 
             GetMapCollision = new List<Rectangle>();
             GetHolderCollision = new List<Rectangle>();
-
-            GetPlayerPosition = new Vector2(_playerPos.objects[0].x, _playerPos.objects[0].y);
 
             foreach (var obj in _mapCollision.objects)
             {
@@ -47,6 +44,26 @@ namespace HeroKnightGame
             {
                 GetHolderCollision.Add(new Rectangle((int)obj.x, (int)obj.y, (int)obj.width, (int)obj.height));
             }
+        }
+
+        public static Vector2 GetPlayerPosition()
+        {
+            TiledLayer _playerPos = map.Layers.First(p => p.name == "PlayerPosition");
+
+            return new Vector2(_playerPos.objects[0].x, _playerPos.objects[0].y);
+        }
+
+        public static List<Vector2> GetEnemyPosition()
+        {
+            TiledLayer _enemyPos = map.Layers.First(e => e.name == "EnemyPosition");
+            List<Vector2> _pos = new List<Vector2>();
+
+            foreach (var obj in _enemyPos.objects)
+            {
+                _pos.Add(new Vector2(obj.x, obj.y));
+            }
+
+            return _pos;
         }
 
         /*public static List<Rectangle> GetMapCollision()

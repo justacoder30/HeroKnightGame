@@ -1,5 +1,4 @@
-﻿using HeroKnightGame.Model;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -30,7 +29,7 @@ namespace HeroKnightGame
 
         public Player()
         {
-            Position = Map.GetPlayerPosition;
+            Position = Map.GetPlayerPosition();
 
             _animations = new Dictionary<string, Animation>();
 

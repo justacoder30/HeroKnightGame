@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="71">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="81">
  <tileset firstgid="1" source="Dungeon Tile Set.tsx"/>
  <layer id="1" name="Tile Layer 1" width="150" height="20">
   <data encoding="csv">
@@ -27,6 +27,16 @@
  </layer>
  <objectgroup id="7" name="PlayerPosition">
   <object id="70" x="16" y="208" width="120" height="80"/>
+ </objectgroup>
+ <objectgroup id="8" name="EnemyPosition">
+  <object id="73" x="528" y="240" width="96" height="64"/>
+  <object id="74" x="816" y="240" width="96" height="64"/>
+  <object id="75" x="1376" y="80" width="96" height="64"/>
+  <object id="76" x="64" y="16" width="96" height="64"/>
+  <object id="77" x="976" y="240" width="96" height="64"/>
+  <object id="78" x="1392" y="240" width="96" height="64"/>
+  <object id="79" x="1776" y="144" width="96" height="64"/>
+  <object id="80" x="1632" y="240" width="96" height="64"/>
  </objectgroup>
  <objectgroup id="6" name="HolderCollider">
   <object id="58" x="16" y="96" width="48" height="16"/>
