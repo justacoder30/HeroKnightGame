@@ -15,14 +15,12 @@ namespace HeroKnightGame
         private SpriteEffects _effect = SpriteEffects.None;
         private const float Speed = 180f;
         private const float Gravity = 1000f;
-        private const float Jump = 400f;
+        private const float Jump = 410f;
         private bool _falling = true;
         private int _texture_Width;
         private int _texture_Height;
         private const int OFFSET_Width = 52;
-        private const int OFFSET_Height = 62;
-        private KeyboardState _currentKeySate;
-        private KeyboardState _prevKeySate;
+        private const int OFFSET_Height = 42;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -34,7 +32,7 @@ namespace HeroKnightGame
             _animations = new Dictionary<string, Animation>();
 
             _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player1/Idle"), 10));
-            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player1/Run"), 10, 0.06f));
+            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player1/Run"), 10, 0.051f));
             _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player1/Jump"), 3));
             _animations.Add("Fall", new Animation(Globals.Content.Load<Texture2D>("Player1/Fall"), 3));
             _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Player1/Attack"), 6, 0.05f, true));
@@ -127,17 +125,20 @@ namespace HeroKnightGame
 
             foreach (var collider in Map.GetHolderCollision)
             {
-                newRect = CalculateBounds(new(Position.X, newPos.Y));
-
-                if (newRect.Intersects(collider))
+                if (newPos.Y > Position.Y)
                 {
-                    if (velocity.Y >= 0)
+                    newRect = CalculateBounds(new(Position.X, newPos.Y));
+
+                    if (newRect.Intersects(collider))
                     {
                         newPos.Y = collider.Top - _texture_Height;
                         _falling = false;
                         velocity.Y = 0;
+
                     }
                 }
+                    
+                
             }
 
             foreach (var collider in Map.GetMapCollision)

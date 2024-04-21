@@ -19,7 +19,7 @@ namespace HeroKnightGame.Model
         private int _texture_Height;
         private const int OFFSET_Width = 39;
         private const int OFFSET_Height = 18;
-        private const float _timeChange = 5;
+        private float _timeChange;
         private float _timer;
 
         public Enemy(Texture2D texture, Vector2 position) : base(texture, position)
@@ -45,6 +45,9 @@ namespace HeroKnightGame.Model
 
             _texture_Width = _animationManager.Animation.FrameWidth;
             _texture_Height = _animationManager.Animation.FrameHeight;
+
+            Random random = new Random();
+            _timeChange = random.Next(3, 6);
 
         }
 
