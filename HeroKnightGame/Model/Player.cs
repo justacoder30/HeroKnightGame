@@ -116,10 +116,7 @@ namespace HeroKnightGame
                 _falling = true;
             }
 
-            
-
             ApplyGravity();
-            //velocity.Y += Gravity * Globals.Time; 
         }
 
         private void UpdatePosition()
@@ -130,18 +127,15 @@ namespace HeroKnightGame
 
             foreach (var collider in Map.GetHolderCollision)
             {
-                if (newPos.Y != Position.Y)
-                {
-                    newRect = CalculateBounds(new(Position.X, newPos.Y));
+                newRect = CalculateBounds(new(Position.X, newPos.Y));
 
-                    if (newRect.Intersects(collider))
+                if (newRect.Intersects(collider))
+                {
+                    if (velocity.Y >= 0)
                     {
-                        if (velocity.Y > 0)
-                        {
-                            newPos.Y = collider.Top - _texture_Height;
-                            _falling = false;
-                            velocity.Y = 0;
-                        }
+                        newPos.Y = collider.Top - _texture_Height;
+                        _falling = false;
+                        velocity.Y = 0;
                     }
                 }
             }
@@ -195,7 +189,7 @@ namespace HeroKnightGame
                 { 
                     _player = CharacterState.Run;
                 }
-                else if (velocity.X == 0)
+                else 
                 {
                     if (KeyState.IsKeyDown(Keys.J) || _animationManager.IsAnimationRunning)
                     {

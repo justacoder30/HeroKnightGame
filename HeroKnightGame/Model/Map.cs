@@ -14,9 +14,8 @@ namespace HeroKnightGame
         public static int TILES_SIZE;
         public static List<Rectangle> GetHolderCollision;
         public static List<Rectangle> GetMapCollision;
+        public static List<Rectangle> GetEnemyCollision;
         private static TiledMap map;
-        private TiledLayer _mapCollision;
-        private TiledLayer _holderCollision;
         private Texture2D _texture;
 
         public Map()
@@ -28,12 +27,14 @@ namespace HeroKnightGame
 
             map = new TiledMap("Content/Map/Map.tmx");
 
-            _mapCollision = map.Layers.First(m => m.name == "MapCollider");
-            _holderCollision = map.Layers.First(h => h.name == "HolderCollider");
-            
+            TiledLayer _mapCollision = map.Layers.First(m => m.name == "MapCollider");
+            TiledLayer _holderCollision = map.Layers.First(h => h.name == "HolderCollider");
+            TiledLayer _enemyCollision = map.Layers.First(e => e.name == "EnemyCollider");
+
 
             GetMapCollision = new List<Rectangle>();
             GetHolderCollision = new List<Rectangle>();
+            GetEnemyCollision = new List<Rectangle>();
 
             foreach (var obj in _mapCollision.objects)
             {
@@ -43,6 +44,11 @@ namespace HeroKnightGame
             foreach (var obj in _holderCollision.objects)
             {
                 GetHolderCollision.Add(new Rectangle((int)obj.x, (int)obj.y, (int)obj.width, (int)obj.height));
+            }
+
+            foreach(var obj in _enemyCollision.objects)
+            {
+                GetEnemyCollision.Add(new Rectangle((int)obj.x, (int)obj.y, (int)obj.width, (int)obj.height));
             }
         }
 
@@ -65,18 +71,6 @@ namespace HeroKnightGame
 
             return _pos;
         }
-
-        /*public static List<Rectangle> GetMapCollision()
-        {
-            List<Rectangle> result = new List<Rectangle>();
-
-            foreach(var obj in _mapCollision.objects)
-            {
-                result.Add(new Rectangle((int)obj.x,(int)obj.y, (int)obj.width, (int)obj.height));
-            }
-
-            return result;
-        }*/
 
         public void Draw()
         {

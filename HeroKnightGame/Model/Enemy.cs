@@ -13,13 +13,14 @@ namespace HeroKnightGame.Model
         private Vector2 newVelocity;
         private CharacterState _enemy;
         private SpriteEffects _effect = SpriteEffects.None;
-        private const float Speed = 150f;
-        private const float Gravity = 1000f;
+        private const float Speed = 40f;
         private bool _falling = true;
         private int _texture_Width;
         private int _texture_Height;
         private const int OFFSET_Width = 39;
         private const int OFFSET_Height = 18;
+        private const float _timeChange = 5;
+        private float _timer;
 
         public Enemy(Texture2D texture, Vector2 position) : base(texture, position)
         { }
@@ -35,7 +36,7 @@ namespace HeroKnightGame.Model
             _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Enemy/Attack"), 8));*/
 
             _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Idle"), 8));
-            _animations.Add("Walk", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Walk"), 4));
+            _animations.Add("Walk", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Walk"), 10));
             _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Attack"), 10));
             _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Death"), 13));
             _animations.Add("Hit", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Hit"), 5));
@@ -44,6 +45,7 @@ namespace HeroKnightGame.Model
 
             _texture_Width = _animationManager.Animation.FrameWidth;
             _texture_Height = _animationManager.Animation.FrameHeight;
+
         }
 
         private Rectangle CalculateBounds(Vector2 pos)
@@ -51,36 +53,58 @@ namespace HeroKnightGame.Model
             return new((int)pos.X + OFFSET_Width, (int)pos.Y + OFFSET_Height, _texture_Width - OFFSET_Width * 2, _texture_Height - OFFSET_Height);
         }
 
-        private void ApplyGravity()
-        {
-            
-        }
-
         private void UpdateVelocity()
         {
-            
+            _timer += Globals.Time;
+
+            if(velocity.X != 0 && _timer > _timeChange)
+            {
+                velocity.X = 0;
+                _timer = 0;
+            }
+            else if (velocity.X == 0 && _timer > _timeChange)
+            {
+                if(_effect == SpriteEffects.None) velocity.X = Speed;
+                else velocity.X = -Speed;
+                _timer = 0;
+            }
         }
 
         private void UpdatePosition()
         {
+            Vector2 newPos = Position + velocity * Globals.Time;
+            Rectangle newRect;
 
-            
+            foreach (var collider in Map.GetEnemyCollision)
+            {
+                if (newPos.X != Position.X)
+                {
+                    newRect = CalculateBounds(new(newPos.X, Position.Y));
+                    if (newRect.Intersects(collider))
+                    {
+                        velocity.X *= -1;
+                        continue;
+                    }
+                }
+            }
+
+            Position += velocity * Globals.Time;
         }
 
         private void UpdateAnimation()
         {
-            _enemy = CharacterState.Idle;
-            
-            /*if (velocity.X != 0)
+            //_enemy = CharacterState.Attack;
+
+            if (velocity.X != 0)
             {
                 if (velocity.X > 0) _effect = SpriteEffects.None;
                 if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
-                _enemy = CharacterState.Run;
+                _enemy = CharacterState.Walk;
             }
             else if (velocity.X == 0)
             {
                 _enemy = CharacterState.Idle;
-            }*/
+            }
         }
 
         private void SetAnimtion()
