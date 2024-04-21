@@ -20,7 +20,6 @@ namespace HeroKnightGame
             _player = new Player();
             _enemyManager = new EnemyManager();
             _render.SetResolution(1920, 1080);
-            _render.SetResolution(1920, 1080);
 
             _camera = new Camera();
             _backGround = new Sprite(Globals.Content.Load<Texture2D>("Background"), new(0, 0));
