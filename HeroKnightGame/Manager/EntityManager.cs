@@ -1,5 +1,4 @@
-﻿using HeroKnightGame.Model;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace HeroKnightGame

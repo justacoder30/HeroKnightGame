@@ -10,7 +10,6 @@ namespace HeroKnightGame
     public class Player : Sprite
     {
         private Vector2 velocity;
-        private Vector2 newVelocity;
         private CharacterState _player;
         private SpriteEffects _effect = SpriteEffects.None;
         private const float Speed = 180f;
@@ -50,7 +49,7 @@ namespace HeroKnightGame
 
         private void ApplyGravity()
         {
-            newVelocity = new Vector2();
+            Vector2 newVelocity = new Vector2();
             newVelocity.Y = velocity.Y + Gravity * Globals.Time;
             Vector2 newPos = Position + newVelocity * Globals.Time;
 

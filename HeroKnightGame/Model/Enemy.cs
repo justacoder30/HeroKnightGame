@@ -5,12 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HeroKnightGame.Model
+namespace HeroKnightGame
 {
     public class Enemy : Sprite
     {
         private Vector2 velocity;
-        private Vector2 newVelocity;
         private CharacterState _enemy;
         private SpriteEffects _effect = SpriteEffects.None;
         private const float Speed = 40f;

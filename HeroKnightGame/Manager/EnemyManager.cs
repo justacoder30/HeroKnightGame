@@ -1,5 +1,4 @@
-﻿using HeroKnightGame.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace HeroKnightGame
