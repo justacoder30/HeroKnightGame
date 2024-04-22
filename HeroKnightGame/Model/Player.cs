@@ -204,8 +204,6 @@ namespace HeroKnightGame
             _prevKeySate = _currentKeySate;
             _currentKeySate = Keyboard.GetState();
 
-            
-
             if (velocity.X > 0) _effect = SpriteEffects.None;
             else if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
 
