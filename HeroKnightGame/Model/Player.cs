@@ -217,7 +217,7 @@ namespace HeroKnightGame
                 }
                 else 
                 {
-                    if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyUp(Keys.J))
+                    if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyUp(Keys.J) && !_animationManager.IsAnimationRunning)
                     {
                         _player = CharacterState.Attack;
                         _animationManager.IsAnimationRunning = true;
