@@ -24,6 +24,8 @@ namespace HeroKnightGame
             Globals.Content = Content;
             _entityManager = new EntityManager();
 
+            Globals.Game = this;
+
             base.Initialize();
         }
 

@@ -20,6 +20,9 @@ namespace HeroKnightGame
         private int _texture_Height;
         private const int OFFSET_Width = 52;
         private const int OFFSET_Height = 42;
+        KeyboardState _currentKeySate;
+        KeyboardState _prevKeySate;
+        private int damage = 10;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -176,9 +179,32 @@ namespace HeroKnightGame
             Position = newPos; 
         }
 
+        private Rectangle GetAttackBound()
+        {
+            if(_effect == SpriteEffects.None) return new Rectangle((int)Position.X + _texture_Width - OFFSET_Width, (int)Position.Y, OFFSET_Width, OFFSET_Height);
+            return new Rectangle((int)Position.X, (int)Position.Y, OFFSET_Width, OFFSET_Height);
+        }
+
+        public void IsAttacking()
+        {
+            var rect = GetAttackBound();
+
+            for (int i = 0; i < EnemyManager.enemies.Count; i++)
+            {
+                if (rect.Intersects(EnemyManager.enemies[i].CalculateBounds()))
+                {
+                    EnemyManager.IsBeingHit(rect, damage, i);
+                    return;
+                }
+            }
+        }
+
         private void UpdateAnimation()
         {
-            var KeyState = Keyboard.GetState();
+            _prevKeySate = _currentKeySate;
+            _currentKeySate = Keyboard.GetState();
+
+            
 
             if (velocity.X > 0) _effect = SpriteEffects.None;
             else if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
@@ -191,10 +217,15 @@ namespace HeroKnightGame
                 }
                 else 
                 {
-                    if (KeyState.IsKeyDown(Keys.J) || _animationManager.IsAnimationRunning)
+                    if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyUp(Keys.J))
                     {
                         _player = CharacterState.Attack;
                         _animationManager.IsAnimationRunning = true;
+                        IsAttacking();
+                    }
+                    if (_player == CharacterState.Attack && _animationManager.IsAnimationRunning)
+                    {
+                        _player = CharacterState.Attack;
                     }
                     else _player = CharacterState.Idle;
                 }
@@ -205,9 +236,11 @@ namespace HeroKnightGame
 
         private void SetAnimtion()
         {
+            _animationManager.Update();
+
             UpdateAnimation();
 
-            switch(_player)
+            switch (_player)
             {
                 case CharacterState.Idle:
                     _animationManager.Play(_animations["Idle"]);
@@ -225,15 +258,13 @@ namespace HeroKnightGame
                     _animationManager.Play(_animations["Attack"]);
                     break;
             }
-            
         }
 
         public void Update()
         {
             UpdateVelocity();
             UpdatePosition();
-            SetAnimtion();
-            _animationManager.Update();
+            SetAnimtion();  
         }
 
         public new void Draw()

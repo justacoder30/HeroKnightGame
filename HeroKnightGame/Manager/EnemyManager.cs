@@ -1,34 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Microsoft.Xna.Framework;
 
 namespace HeroKnightGame
 {
     public class EnemyManager
     {
-        List<Enemy> _enemies;
+        public static List<Enemy> enemies;
 
         public EnemyManager()
         {
-            _enemies = new List<Enemy>();
+            enemies = new List<Enemy>();
 
             foreach (var _pos in Map.GetEnemyPosition())
             {
                 var enemy = new Enemy(_pos);
-                _enemies.Add(enemy);
+                enemies.Add(enemy);
             }
+        }
+
+        public static void IsBeingHit(Rectangle rect, int damage, int index)
+        {
+            enemies[index].BeingHit = true;
+            enemies[index].HP -= damage;
         }
 
         public void Update()
         {
-            foreach(var _enemies in _enemies)
+            for(int i=0; i < enemies.Count; i++)
             {
-                _enemies.Update();
+                enemies[i].Update();
+                if (enemies[i].IsRemoved)
+                {
+                    enemies.RemoveAt(i);
+                    i--;
+                }
+
             }
+
+
         }
 
         public void Draw()
         {
-            foreach (var _enemies in _enemies)
+            foreach (var _enemies in enemies)
             {
                 _enemies.Draw();
             }

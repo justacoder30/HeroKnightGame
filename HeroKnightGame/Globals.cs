@@ -10,6 +10,7 @@ namespace HeroKnightGame
         public static SpriteBatch SpriteBatch;
         public static ContentManager Content;
         public static Point WindowSize;
+        public static Game Game;
         public static float Time;
 
         public static void Update(GameTime gameTime)

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace HeroKnightGame
@@ -13,13 +14,15 @@ namespace HeroKnightGame
         private CharacterState _enemy;
         private SpriteEffects _effect = SpriteEffects.None;
         private const float Speed = 40f;
-        private bool _falling = true;
         private int _texture_Width;
         private int _texture_Height;
         private const int OFFSET_Width = 39;
         private const int OFFSET_Height = 18;
         private float _timeChange;
         private float _timer;
+        public bool BeingHit;
+        public bool IsRemoved;
+        public int HP = 30;
 
         public Enemy(Texture2D texture, Vector2 position) : base(texture, position)
         { }
@@ -30,15 +33,11 @@ namespace HeroKnightGame
 
             _animations = new Dictionary<string, Animation>();
 
-            /*_animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy/Idle"), 4, 0.2f));
-            _animations.Add("Walk", new Animation(Globals.Content.Load<Texture2D>("Enemy/Walk"), 4, 0.2f));
-            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Enemy/Attack"), 8));*/
-
             _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Idle"), 8));
             _animations.Add("Walk", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Walk"), 10));
             _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Attack"), 10));
-            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Death"), 13));
-            _animations.Add("Hit", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Hit"), 5));
+            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Death"), 13, 0.08f, true));
+            _animations.Add("Hit", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Hit"), 5, 0.08f, true));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
@@ -50,9 +49,14 @@ namespace HeroKnightGame
 
         }
 
-        private Rectangle CalculateBounds(Vector2 pos)
+        public Rectangle CalculateBounds(Vector2 pos)
         {
             return new((int)pos.X + OFFSET_Width, (int)pos.Y + OFFSET_Height, _texture_Width - OFFSET_Width * 2, _texture_Height - OFFSET_Height);
+        }
+
+        public Rectangle CalculateBounds()
+        {
+            return new((int)Position.X + OFFSET_Width, (int)Position.Y + OFFSET_Height, _texture_Width - OFFSET_Width * 2, _texture_Height - OFFSET_Height);
         }
 
         private void UpdateVelocity()
@@ -92,10 +96,35 @@ namespace HeroKnightGame
 
             Position += velocity * Globals.Time;
         }
+       
 
         private void UpdateAnimation()
         {
-            //_enemy = CharacterState.Attack;
+            if (!_animationManager.IsAnimationRunning && _enemy == CharacterState.Death)
+            {
+                IsRemoved = true;
+                return;
+            }
+            if (_enemy == CharacterState.Death || HP<=0)
+            {
+                _enemy = CharacterState.Death;
+                velocity.X = 0;
+                return;
+            }
+            if (_animationManager.IsAnimationRunning || BeingHit)
+            {
+                _enemy = CharacterState.Hit;
+                velocity.X = 0;
+                BeingHit = false;
+                return;
+            }
+            /*if (HP > 0 && BeingHit)
+            {
+                _enemy = CharacterState.Hit;
+                velocity.X = 0;
+                BeingHit = false;
+                return;
+            }*/
 
             if (velocity.X != 0)
             {
@@ -107,10 +136,13 @@ namespace HeroKnightGame
             {
                 _enemy = CharacterState.Idle;
             }
+            
         }
 
         private void SetAnimtion()
         {
+            _animationManager.Update();
+
             UpdateAnimation();
 
             switch (_enemy)
@@ -124,6 +156,12 @@ namespace HeroKnightGame
                 case CharacterState.Attack:
                     _animationManager.Play(_animations["Attack"]);
                     break;
+                case CharacterState.Hit:
+                    _animationManager.Play(_animations["Hit"]);
+                    break;
+                case CharacterState.Death:
+                    _animationManager.Play(_animations["Death"]);
+                    break;
             }
 
         }
@@ -133,7 +171,6 @@ namespace HeroKnightGame
             UpdateVelocity();
             UpdatePosition();
             SetAnimtion();
-            _animationManager.Update();
         }
 
         public new void Draw()

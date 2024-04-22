@@ -9,6 +9,8 @@ namespace HeroKnightGame
         Walk,
         Jump,
         Fall,
-        Attack
+        Attack,
+        Hit,
+        Death
     }
 }
