@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace HeroKnightGame
@@ -200,6 +201,7 @@ namespace HeroKnightGame
                 }
                 else 
                 {
+                    if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyUp(Keys.J)) Debug.WriteLine("yes");
                     if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyUp(Keys.J) && !_animationManager.IsAnimationRunning)
                     {
                         _state = CharacterState.Attack;
