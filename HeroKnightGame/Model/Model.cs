@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace HeroKnightGame
 {
-    public class Model : Sprite
+    public abstract class Model : Sprite
     {
         protected AnimationManager _animationManager;
         protected Dictionary<string, Animation> _animations;
@@ -60,6 +60,12 @@ namespace HeroKnightGame
             BeingHit = true;
             HP -= damage;
         }
+
+        public abstract void IsAttacking();
+        protected abstract void UpdateVelocity();
+        protected abstract void UpdatePosition();
+        protected abstract void SetAnimtion();
+        public abstract void Update();
 
         public new void Draw()
         {

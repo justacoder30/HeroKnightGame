@@ -43,12 +43,12 @@ namespace HeroKnightGame
 
         }
 
-        public void IsAttacking()
+        public override void IsAttacking()
         {
             
         }
 
-        protected void UpdateVelocity()
+        protected override void UpdateVelocity()
         {
             _timer += Globals.Time;
 
@@ -65,7 +65,7 @@ namespace HeroKnightGame
             }
         }
 
-        protected void UpdatePosition()
+        protected override void UpdatePosition()
         {
             Vector2 newPos = Position + velocity * Globals.Time;
             Rectangle newRect;
@@ -128,7 +128,7 @@ namespace HeroKnightGame
             
         }
 
-        protected void SetAnimtion()
+        protected override void SetAnimtion()
         {
             _animationManager.Update();
 
@@ -155,7 +155,7 @@ namespace HeroKnightGame
 
         }
 
-        public void Update()
+        public override void Update()
         {
             UpdateVelocity();
             UpdatePosition();
