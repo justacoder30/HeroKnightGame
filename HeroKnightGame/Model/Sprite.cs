@@ -7,8 +7,6 @@ namespace HeroKnightGame
 {
     public class Sprite
     {
-        protected AnimationManager _animationManager;
-        protected Dictionary<string, Animation> _animations;
         protected Texture2D _texture;
         public Vector2 Position {  get; set; }
 

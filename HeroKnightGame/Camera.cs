@@ -4,7 +4,7 @@ namespace HeroKnightGame
 {
     public class Camera
     {
-        public Matrix Translation {  get; set; }
+        public Matrix Translation { get; set; }
 
         public void FollowPLayer(Player player)
         {

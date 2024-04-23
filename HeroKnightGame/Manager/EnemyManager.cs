@@ -20,12 +20,6 @@ namespace HeroKnightGame
             }
         }
 
-        public static void IsBeingHit(Rectangle rect, int damage, int index)
-        {
-            enemies[index].BeingHit = true;
-            enemies[index].HP -= damage;
-        }
-
         public void Update()
         {
             for(int i=0; i < enemies.Count; i++)

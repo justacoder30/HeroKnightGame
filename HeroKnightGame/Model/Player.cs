@@ -7,33 +7,25 @@ using System.Linq;
 
 namespace HeroKnightGame
 {
-    public class Player : Sprite
+    public class Player : Model
     {
-        private Vector2 velocity;
-        private CharacterState _player;
-        private SpriteEffects _effect = SpriteEffects.None;
-        private const float Speed = 180f;
-        private const float Gravity = 1000f;
-        private const float Jump = 410f;
-        private bool _falling = true;
-        private int _texture_Width;
-        private int _texture_Height;
-        private const int OFFSET_Width = 52;
-        private const int OFFSET_Height = 42;
-        KeyboardState _currentKeySate;
-        KeyboardState _prevKeySate;
-        private int damage = 10;
-
-        public Vector2 Orgin
-        {
-            get => new Vector2(_texture_Width / 2, _texture_Height / 2);
-        }
+        private KeyboardState _currentKeySate;
+        private KeyboardState _prevKeySate;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
 
         public Player()
         {
+            _falling = true;
+            Speed = 180f;
+            Gravity = 1000f;
+            Jump = 410f;
+            OFFSET_Width = 52;
+            OFFSET_Height = 42;
+            damage = 10;
+            HP = 200;
+
             Position = Map.GetPlayerPosition();
 
             _animations = new Dictionary<string, Animation>();
@@ -50,33 +42,13 @@ namespace HeroKnightGame
             _texture_Height = _animationManager.Animation.FrameHeight;
         }
 
-        private Rectangle CalculateBounds(Vector2 pos)
+        protected override void ApplyGravity()
         {
-            return new((int)pos.X + OFFSET_Width, (int)pos.Y + OFFSET_Height, _texture_Width - OFFSET_Width * 2, _texture_Height - OFFSET_Height);
-        }
+            base.ApplyGravity();
 
-        private void ApplyGravity()
-        {
             Vector2 newVelocity = new Vector2();
             newVelocity.Y = velocity.Y + Gravity * Globals.Time;
             Vector2 newPos = Position + newVelocity * Globals.Time;
-
-            foreach (var collider in Map.GetMapCollision)
-            {
-                if (newPos.Y != Position.Y)
-                {
-                    var newRect = CalculateBounds(new(Position.X, newPos.Y));
-                    if (newRect.Intersects(collider))
-                    {
-                        if (newVelocity.Y > 0)
-                        {
-                            velocity.Y = 0;
-                            _falling = false;
-                            return;
-                        }
-                    }
-                }
-            }
 
             foreach (var collider in Map.GetHolderCollision)
             {
@@ -97,25 +69,24 @@ namespace HeroKnightGame
             }
 
             velocity.Y += Gravity * Globals.Time;
-            //_falling = true;
         }
 
-        private void UpdateVelocity()
+        protected override void UpdateVelocity()
         {
-            var KeyState = Keyboard.GetState();
+            _currentKeySate = Keyboard.GetState();
 
             velocity.X *= 0f;
 
-            if (KeyState.IsKeyDown(Keys.D)) 
+            if (_currentKeySate.IsKeyDown(Keys.D)) 
             {
                 velocity.X = Speed;
             }
-            if (KeyState.IsKeyDown(Keys.A))
+            if (_currentKeySate.IsKeyDown(Keys.A))
             {
                 velocity.X = -Speed;
             }
 
-            if (KeyState.IsKeyDown(Keys.Space) && !_falling)
+            if (_currentKeySate.IsKeyDown(Keys.Space) && !_falling)
             {
                 velocity.Y = -Jump;
                 _falling = true;
@@ -124,7 +95,7 @@ namespace HeroKnightGame
             ApplyGravity();
         }
 
-        private void UpdatePosition()
+        protected override void UpdatePosition()
         {
             
             Vector2 newPos = Position + velocity * Globals.Time;
@@ -184,13 +155,7 @@ namespace HeroKnightGame
             Position = newPos; 
         }
 
-        private Rectangle GetAttackBound()
-        {
-            if(_effect == SpriteEffects.None) return new Rectangle((int)Position.X + _texture_Width - OFFSET_Width, (int)Position.Y, OFFSET_Width, OFFSET_Height);
-            return new Rectangle((int)Position.X, (int)Position.Y, OFFSET_Width, OFFSET_Height);
-        }
-
-        public void IsAttacking()
+        public override void IsAttacking()
         {
             var rect = GetAttackBound();
 
@@ -198,7 +163,7 @@ namespace HeroKnightGame
             {
                 if (rect.Intersects(EnemyManager.enemies[i].CalculateBounds()))
                 {
-                    EnemyManager.IsBeingHit(rect, damage, i);
+                    EnemyManager.enemies[i].IsBeingHit(damage);
                     return;
                 }
             }
@@ -216,34 +181,34 @@ namespace HeroKnightGame
             {
                 if (velocity.X != 0)
                 { 
-                    _player = CharacterState.Run;
+                    _state = CharacterState.Run;
                 }
                 else 
                 {
                     if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyUp(Keys.J) && !_animationManager.IsAnimationRunning)
                     {
-                        _player = CharacterState.Attack;
+                        _state = CharacterState.Attack;
                         _animationManager.IsAnimationRunning = true;
                         IsAttacking();
                     }
-                    if (_player == CharacterState.Attack && _animationManager.IsAnimationRunning)
+                    if (_state == CharacterState.Attack && _animationManager.IsAnimationRunning)
                     {
-                        _player = CharacterState.Attack;
+                        _state = CharacterState.Attack;
                     }
-                    else _player = CharacterState.Idle;
+                    else _state = CharacterState.Idle;
                 }
             }
-            else if (velocity.Y < 0) _player = CharacterState.Jump;
-            else if (velocity.Y > 0) _player = CharacterState.Fall;
+            else if (velocity.Y < 0) _state = CharacterState.Jump;
+            else if (velocity.Y > 0) _state = CharacterState.Fall;
         }
 
-        private void SetAnimtion()
+        protected override void SetAnimtion()
         {
             _animationManager.Update();
 
             UpdateAnimation();
 
-            switch (_player)
+            switch (_state)
             {
                 case CharacterState.Idle:
                     _animationManager.Play(_animations["Idle"]);
@@ -263,7 +228,7 @@ namespace HeroKnightGame
             }
         }
 
-        public void Update()
+        public override void Update()
         {
             UpdateVelocity();
             UpdatePosition();
@@ -272,16 +237,7 @@ namespace HeroKnightGame
 
         public new void Draw()
         {
-            Globals.SpriteBatch.Draw(_animationManager.Animation.Texture,
-                                    Position,
-                                    _animationManager.Rect,
-                                    Color.White,
-                                    0f,
-                                    Vector2.One,
-                                    1f,
-                                    _effect,
-                                    0f
-                                    );
+            base.Draw();
         }
     }
 }

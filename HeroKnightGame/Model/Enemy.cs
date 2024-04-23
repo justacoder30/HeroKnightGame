@@ -8,27 +8,21 @@ using System.Linq;
 
 namespace HeroKnightGame
 {
-    public class Enemy : Sprite
+    public class Enemy : Model
     {
-        private Vector2 velocity;
-        private CharacterState _enemy;
-        private SpriteEffects _effect = SpriteEffects.None;
-        private const float Speed = 40f;
-        private int _texture_Width;
-        private int _texture_Height;
-        private const int OFFSET_Width = 39;
-        private const int OFFSET_Height = 18;
         private float _timeChange;
         private float _timer;
-        public bool BeingHit;
-        public bool IsRemoved;
-        public int HP = 30;
 
         public Enemy(Texture2D texture, Vector2 position) : base(texture, position)
         { }
 
         public Enemy(Vector2 position)
         {
+            Speed = 40f;
+            OFFSET_Width = 39;
+            OFFSET_Height = 18;
+            HP = 30;
+
             Position = position;
 
             _animations = new Dictionary<string, Animation>();
@@ -49,17 +43,12 @@ namespace HeroKnightGame
 
         }
 
-        public Rectangle CalculateBounds(Vector2 pos)
+        public override void IsAttacking()
         {
-            return new((int)pos.X + OFFSET_Width, (int)pos.Y + OFFSET_Height, _texture_Width - OFFSET_Width * 2, _texture_Height - OFFSET_Height);
+            throw new NotImplementedException();
         }
 
-        public Rectangle CalculateBounds()
-        {
-            return new((int)Position.X + OFFSET_Width, (int)Position.Y + OFFSET_Height, _texture_Width - OFFSET_Width * 2, _texture_Height - OFFSET_Height);
-        }
-
-        private void UpdateVelocity()
+        protected override void UpdateVelocity()
         {
             _timer += Globals.Time;
 
@@ -76,7 +65,7 @@ namespace HeroKnightGame
             }
         }
 
-        private void UpdatePosition()
+        protected override void UpdatePosition()
         {
             Vector2 newPos = Position + velocity * Globals.Time;
             Rectangle newRect;
@@ -100,20 +89,20 @@ namespace HeroKnightGame
 
         private void UpdateAnimation()
         {
-            if (!_animationManager.IsAnimationRunning && _enemy == CharacterState.Death)
+            if (!_animationManager.IsAnimationRunning && _state == CharacterState.Death)
             {
                 IsRemoved = true;
                 return;
             }
-            if (_enemy == CharacterState.Death || HP<=0)
+            if (_state == CharacterState.Death || HP<=0)
             {
-                _enemy = CharacterState.Death;
+                _state = CharacterState.Death;
                 velocity.X = 0;
                 return;
             }
             if (_animationManager.IsAnimationRunning || BeingHit)
             {
-                _enemy = CharacterState.Hit;
+                _state = CharacterState.Hit;
                 velocity.X = 0;
                 BeingHit = false;
                 return;
@@ -130,22 +119,22 @@ namespace HeroKnightGame
             {
                 if (velocity.X > 0) _effect = SpriteEffects.None;
                 if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
-                _enemy = CharacterState.Walk;
+                _state = CharacterState.Walk;
             }
             else if (velocity.X == 0)
             {
-                _enemy = CharacterState.Idle;
+                _state = CharacterState.Idle;
             }
             
         }
 
-        private void SetAnimtion()
+        protected override void SetAnimtion()
         {
             _animationManager.Update();
 
             UpdateAnimation();
 
-            switch (_enemy)
+            switch (_state)
             {
                 case CharacterState.Idle:
                     _animationManager.Play(_animations["Idle"]);
@@ -166,7 +155,7 @@ namespace HeroKnightGame
 
         }
 
-        public void Update()
+        public override void Update()
         {
             UpdateVelocity();
             UpdatePosition();
@@ -175,16 +164,7 @@ namespace HeroKnightGame
 
         public new void Draw()
         {
-            Globals.SpriteBatch.Draw(_animationManager.Animation.Texture,
-                                    Position,
-                                    _animationManager.Rect,
-                                    Color.White,
-                                    0f,
-                                    Vector2.One,
-                                    1f,
-                                    _effect,
-                                    0f
-                                    );
+            base.Draw();
         }
     }
 }
