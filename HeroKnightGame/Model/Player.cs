@@ -42,13 +42,28 @@ namespace HeroKnightGame
             _texture_Height = _animationManager.Animation.FrameHeight;
         }
 
-        protected override void ApplyGravity()
+        private void ApplyGravity()
         {
-            base.ApplyGravity();
-
             Vector2 newVelocity = new Vector2();
             newVelocity.Y = velocity.Y + Gravity * Globals.Time;
             Vector2 newPos = Position + newVelocity * Globals.Time;
+
+            foreach (var collider in Map.GetMapCollision)
+            {
+                if (newPos.Y != Position.Y)
+                {
+                    var newRect = CalculateBounds(new(Position.X, newPos.Y));
+                    if (newRect.Intersects(collider))
+                    {
+                        if (newVelocity.Y > 0)
+                        {
+                            velocity.Y = 0;
+                            _falling = false;
+                            return;
+                        }
+                    }
+                }
+            }
 
             foreach (var collider in Map.GetHolderCollision)
             {
@@ -155,7 +170,7 @@ namespace HeroKnightGame
             Position = newPos; 
         }
 
-        public override void IsAttacking()
+        public void IsAttacking()
         {
             var rect = GetAttackBound();
 

@@ -49,30 +49,6 @@ namespace HeroKnightGame
             return new((int)Position.X + OFFSET_Width, (int)Position.Y + OFFSET_Height, _texture_Width - OFFSET_Width * 2, _texture_Height - OFFSET_Height);
         }
 
-        protected virtual void ApplyGravity()
-        {
-            Vector2 newVelocity = new Vector2();
-            newVelocity.Y = velocity.Y + Gravity * Globals.Time;
-            Vector2 newPos = Position + newVelocity * Globals.Time;
-
-            foreach (var collider in Map.GetMapCollision)
-            {
-                if (newPos.Y != Position.Y)
-                {
-                    var newRect = CalculateBounds(new(Position.X, newPos.Y));
-                    if (newRect.Intersects(collider))
-                    {
-                        if (newVelocity.Y > 0)
-                        {
-                            velocity.Y = 0;
-                            _falling = false;
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-
         protected Rectangle GetAttackBound()
         {
             if (_effect == SpriteEffects.None) return new Rectangle((int)Position.X + _texture_Width - OFFSET_Width, (int)Position.Y, OFFSET_Width, OFFSET_Height);
@@ -89,7 +65,6 @@ namespace HeroKnightGame
         protected abstract void UpdatePosition();
         protected abstract void SetAnimtion();
         public abstract void Update();
-        public abstract void IsAttacking();
 
         public new void Draw()
         {

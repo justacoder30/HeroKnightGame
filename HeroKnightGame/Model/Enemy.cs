@@ -43,9 +43,9 @@ namespace HeroKnightGame
 
         }
 
-        public override void IsAttacking()
+        public void IsAttacking()
         {
-            throw new NotImplementedException();
+            
         }
 
         protected override void UpdateVelocity()
