@@ -24,6 +24,11 @@ namespace HeroKnightGame
         KeyboardState _prevKeySate;
         private int damage = 10;
 
+        public Vector2 Orgin
+        {
+            get => new Vector2(_texture_Width / 2, _texture_Height / 2);
+        }
+
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
 
