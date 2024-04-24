@@ -63,7 +63,7 @@ namespace HeroKnightGame
             return false;
         }
 
-        public void IsAttacking(Player player)
+        public void Attacking(Player player)
         {
             player.IsBeingHit(damage);
         }
@@ -145,7 +145,7 @@ namespace HeroKnightGame
                 if (_timerAttacking >= 0.8)
                 {
                     _timerAttacking = 0;
-                    IsAttacking(_player);
+                    Attacking(_player);
                 }
                 return;
             } 

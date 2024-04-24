@@ -173,7 +173,7 @@ namespace HeroKnightGame
             Position = newPos; 
         }
 
-        public void IsAttacking()
+        public void Attacking()
         {
             var rect = GetAttackBound();
 
@@ -216,7 +216,7 @@ namespace HeroKnightGame
                     {
                         _state = CharacterState.Attack;
                         _animationManager.IsAnimationRunning = true;
-                        IsAttacking();
+                        Attacking();
                     }
                     if (_state == CharacterState.Attack && _animationManager.IsAnimationRunning)
                     {
