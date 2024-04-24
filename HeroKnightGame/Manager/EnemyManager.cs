@@ -20,11 +20,11 @@ namespace HeroKnightGame
             }
         }
 
-        public void Update()
+        public void Update(Player player)
         {
             for(int i=0; i < enemies.Count; i++)
             {
-                enemies[i].Update();
+                enemies[i].Update(player);
                 if (enemies[i].IsRemoved)
                 {
                     enemies.RemoveAt(i);

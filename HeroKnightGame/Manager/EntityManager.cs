@@ -27,7 +27,7 @@ namespace HeroKnightGame
         public void Update()
         {
             InputManager.Update();
-            _enemyManager.Update();
+            _enemyManager.Update(_player);
             _player.Update();
             _camera.FollowPLayer(_player);
         }

@@ -43,12 +43,28 @@ namespace HeroKnightGame
 
         }
 
-        public override void IsAttacking()
+        public float GetPlayerDistance(Player player)
+        {
+            return (float)Math.Sqrt((float)Math.Pow(player.Position.X - Position.X, 2) + (float)Math.Pow(player.Position.Y - Position.Y, 2));
+        }
+
+        public bool IsAttackRange(Player player)
+        {
+            if (GetPlayerDistance(player) <= _texture_Width/2)
+            {
+                if(player.Position.X - Position.X >= 0) _effect = SpriteEffects.None;
+                else _effect = SpriteEffects.FlipHorizontally;
+                return true;
+            }
+            return false;
+        }
+
+        public void IsAttacking()
         {
             
         }
 
-        protected override void UpdateVelocity()
+        private void UpdateVelocity()
         {
             _timer += Globals.Time;
 
@@ -65,7 +81,7 @@ namespace HeroKnightGame
             }
         }
 
-        protected override void UpdatePosition()
+        private void UpdatePosition()
         {
             Vector2 newPos = Position + velocity * Globals.Time;
             Rectangle newRect;
@@ -87,7 +103,7 @@ namespace HeroKnightGame
         }
        
 
-        private void UpdateAnimation()
+        private void UpdateAnimation(Player player)
         {
             if (!_animationManager.IsAnimationRunning && _state == CharacterState.Death)
             {
@@ -107,14 +123,12 @@ namespace HeroKnightGame
                 BeingHit = false;
                 return;
             }
-            /*if (HP > 0 && BeingHit)
+            if(IsAttackRange(player))
             {
-                _enemy = CharacterState.Hit;
+                _state = CharacterState.Attack;
                 velocity.X = 0;
-                BeingHit = false;
                 return;
-            }*/
-
+            }
             if (velocity.X != 0)
             {
                 if (velocity.X > 0) _effect = SpriteEffects.None;
@@ -128,11 +142,11 @@ namespace HeroKnightGame
             
         }
 
-        protected override void SetAnimtion()
+        private void SetAnimtion(Player player)
         {
             _animationManager.Update();
 
-            UpdateAnimation();
+            UpdateAnimation(player);
 
             switch (_state)
             {
@@ -155,11 +169,11 @@ namespace HeroKnightGame
 
         }
 
-        public override void Update()
+        public void Update(Player player)
         {
             UpdateVelocity();
             UpdatePosition();
-            SetAnimtion();
+            SetAnimtion(player);
         }
 
         public new void Draw()

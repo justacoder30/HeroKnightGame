@@ -87,7 +87,7 @@ namespace HeroKnightGame
             velocity.Y += Gravity * Globals.Time;
         }
 
-        protected override void UpdateVelocity()
+        private void UpdateVelocity()
         {
             _prevKeySate = _currentKeySate;
             _currentKeySate = Keyboard.GetState();
@@ -112,7 +112,7 @@ namespace HeroKnightGame
             ApplyGravity();
         }
 
-        protected override void UpdatePosition()
+        protected void UpdatePosition()
         {
             
             Vector2 newPos = Position + velocity * Globals.Time;
@@ -172,7 +172,7 @@ namespace HeroKnightGame
             Position = newPos; 
         }
 
-        public override void IsAttacking()
+        public void IsAttacking()
         {
             var rect = GetAttackBound();
 
@@ -216,7 +216,7 @@ namespace HeroKnightGame
             else if (velocity.Y > 0) _state = CharacterState.Fall;
         }
 
-        protected override void SetAnimtion()
+        private void SetAnimtion()
         {
             _animationManager.Update();
 
@@ -242,7 +242,7 @@ namespace HeroKnightGame
             }
         }
 
-        public override void Update()
+        public void Update()
         {
             UpdateVelocity();
             UpdatePosition();

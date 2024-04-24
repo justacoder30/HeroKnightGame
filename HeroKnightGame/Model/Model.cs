@@ -61,12 +61,6 @@ namespace HeroKnightGame
             HP -= damage;
         }
 
-        public abstract void IsAttacking();
-        protected abstract void UpdateVelocity();
-        protected abstract void UpdatePosition();
-        protected abstract void SetAnimtion();
-        public abstract void Update();
-
         public new void Draw()
         {
             Globals.SpriteBatch.Draw(_animationManager.Animation.Texture,
