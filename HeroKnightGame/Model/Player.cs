@@ -25,7 +25,7 @@ namespace HeroKnightGame
             OFFSET_Width = 52;
             OFFSET_Height = 42;
             damage = 10;
-            HP = 200;
+            HP = 100;
 
             Position = Map.GetPlayerPosition();
 
@@ -36,6 +36,7 @@ namespace HeroKnightGame
             _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player/Jump"), 3));
             _animations.Add("Fall", new Animation(Globals.Content.Load<Texture2D>("Player/Fall"), 3));
             _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Player/Attack"), 6, 0.05f, true));
+            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Player/Death"), 10, 0.05f, true));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
@@ -188,6 +189,18 @@ namespace HeroKnightGame
 
         private void UpdateAnimation()
         {
+            if (!_animationManager.IsAnimationRunning && _state == CharacterState.Death)
+            {
+                Globals.Game.Exit();
+                return;
+            }
+            if (_state == CharacterState.Death || HP <= 0)
+            {
+                _state = CharacterState.Death;
+                velocity.X = 0;
+                return;
+            }
+
             if (velocity.X > 0) _effect = SpriteEffects.None;
             else if (velocity.X < 0) _effect = SpriteEffects.FlipHorizontally;
 
@@ -239,6 +252,9 @@ namespace HeroKnightGame
                 case CharacterState.Attack:
                     _animationManager.Play(_animations["Attack"]);
                     break;
+                case CharacterState.Death:
+                    _animationManager.Play(_animations["Death"]);
+                    break;
             }
         }
 
@@ -246,7 +262,8 @@ namespace HeroKnightGame
         {
             UpdateVelocity();
             UpdatePosition();
-            SetAnimtion();  
+            SetAnimtion();
+            
         }
 
         public new void Draw()

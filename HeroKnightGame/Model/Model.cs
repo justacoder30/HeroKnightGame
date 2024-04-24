@@ -23,7 +23,7 @@ namespace HeroKnightGame
         protected int OFFSET_Height;
         protected int damage;
         protected bool BeingHit;
-        protected int HP;
+        public int HP;
         public bool IsRemoved;
 
         public Vector2 Orgin

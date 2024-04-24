@@ -12,6 +12,9 @@ namespace HeroKnightGame
     {
         private float _timeChange;
         private float _timer;
+        private float _timerAttacking;
+        private bool _isNearPlayer;
+        private Player _player;
 
         public Enemy(Texture2D texture, Vector2 position) : base(texture, position)
         { }
@@ -22,6 +25,7 @@ namespace HeroKnightGame
             OFFSET_Width = 39;
             OFFSET_Height = 18;
             HP = 30;
+            damage = 10;
 
             Position = position;
 
@@ -59,26 +63,34 @@ namespace HeroKnightGame
             return false;
         }
 
-        public void IsAttacking()
+        public void IsAttacking(Player player)
         {
-            
+            player.IsBeingHit(damage);
         }
 
         private void UpdateVelocity()
         {
             _timer += Globals.Time;
-
-            if(velocity.X != 0 && _timer > _timeChange)
+            if(!_isNearPlayer)
             {
-                velocity.X = 0;
-                _timer = 0;
+                if (velocity.X != 0 && _timer >= _timeChange)
+                {
+                    velocity.X = 0;
+                    _timer = 0;
+                }
+                else if (velocity.X == 0 && _timer >= _timeChange)
+                {
+                    if (_effect == SpriteEffects.None) velocity.X = Speed;
+                    else velocity.X = -Speed;
+                    _timer = 0;
+                }
             }
-            else if (velocity.X == 0 && _timer > _timeChange)
+            else
             {
-                if(_effect == SpriteEffects.None) velocity.X = Speed;
+                if (_effect == SpriteEffects.None) velocity.X = Speed;
                 else velocity.X = -Speed;
-                _timer = 0;
             }
+            
         }
 
         private void UpdatePosition()
@@ -94,6 +106,7 @@ namespace HeroKnightGame
                     if (newRect.Intersects(collider))
                     {
                         velocity.X *= -1;
+                        _isNearPlayer = false;
                         continue;
                     }
                 }
@@ -103,7 +116,7 @@ namespace HeroKnightGame
         }
        
 
-        private void UpdateAnimation(Player player)
+        private void UpdateAnimation()
         {
             if (!_animationManager.IsAnimationRunning && _state == CharacterState.Death)
             {
@@ -123,12 +136,19 @@ namespace HeroKnightGame
                 BeingHit = false;
                 return;
             }
-            if(IsAttackRange(player))
+            if(IsAttackRange(_player))
             {
+                _timerAttacking += Globals.Time;
+                _isNearPlayer = true;
                 _state = CharacterState.Attack;
                 velocity.X = 0;
+                if (_timerAttacking >= 0.8)
+                {
+                    _timerAttacking = 0;
+                    IsAttacking(_player);
+                }
                 return;
-            }
+            } 
             if (velocity.X != 0)
             {
                 if (velocity.X > 0) _effect = SpriteEffects.None;
@@ -142,11 +162,11 @@ namespace HeroKnightGame
             
         }
 
-        private void SetAnimtion(Player player)
+        private void SetAnimtion()
         {
             _animationManager.Update();
 
-            UpdateAnimation(player);
+            UpdateAnimation();
 
             switch (_state)
             {
@@ -169,11 +189,17 @@ namespace HeroKnightGame
 
         }
 
-        public void Update(Player player)
+        public void Update(ref Player player)
         {
+            _player = player;   
+
             UpdateVelocity();
+            SetAnimtion();
             UpdatePosition();
-            SetAnimtion(player);
+            
+
+            player = _player;
+
         }
 
         public new void Draw()
