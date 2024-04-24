@@ -27,11 +27,11 @@ namespace HeroKnightGame
 
             _animations = new Dictionary<string, Animation>();
 
-            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Idle"), 8));
-            _animations.Add("Walk", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Walk"), 10));
-            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Attack"), 10));
-            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Death"), 13, 0.08f, true));
-            _animations.Add("Hit", new Animation(Globals.Content.Load<Texture2D>("Enemy2/Hit"), 5, 0.08f, true));
+            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Enemy/Idle"), 8));
+            _animations.Add("Walk", new Animation(Globals.Content.Load<Texture2D>("Enemy/Walk"), 10));
+            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Enemy/Attack"), 10));
+            _animations.Add("Death", new Animation(Globals.Content.Load<Texture2D>("Enemy/Death"), 13, 0.08f, true));
+            _animations.Add("Hit", new Animation(Globals.Content.Load<Texture2D>("Enemy/Hit"), 5, 0.08f, true));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 

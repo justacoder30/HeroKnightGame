@@ -31,11 +31,11 @@ namespace HeroKnightGame
 
             _animations = new Dictionary<string, Animation>();
 
-            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player1/Idle"), 10));
-            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player1/Run"), 10, 0.051f));
-            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player1/Jump"), 3));
-            _animations.Add("Fall", new Animation(Globals.Content.Load<Texture2D>("Player1/Fall"), 3));
-            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Player1/Attack"), 6, 0.05f, true));
+            _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player/Idle"), 10));
+            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player/Run"), 10, 0.051f));
+            _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player/Jump"), 3));
+            _animations.Add("Fall", new Animation(Globals.Content.Load<Texture2D>("Player/Fall"), 3));
+            _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Player/Attack"), 6, 0.05f, true));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
@@ -199,8 +199,7 @@ namespace HeroKnightGame
                 }
                 else 
                 {
-                    if (_currentKeySate.IsKeyDown(Keys.J)) Debug.WriteLine("yes");
-                    if (_currentKeySate.IsKeyDown(Keys.J) && !_animationManager.IsAnimationRunning)
+                    if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyDown(Keys.J) && !_animationManager.IsAnimationRunning)
                     {
                         _state = CharacterState.Attack;
                         _animationManager.IsAnimationRunning = true;
