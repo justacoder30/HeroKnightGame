@@ -25,7 +25,7 @@ namespace HeroKnightGame
             OFFSET_Width = 52;
             OFFSET_Height = 42;
             damage = 10;
-            HP = 100;
+            HP = 50;
 
             Position = Map.GetPlayerPosition();
 

@@ -43,7 +43,7 @@ namespace HeroKnightGame
             _texture_Height = _animationManager.Animation.FrameHeight;
 
             Random random = new Random();
-            _timeChange = random.Next(3, 6);
+            _timeChange = random.Next(2, 6);
 
         }
 
@@ -114,6 +114,11 @@ namespace HeroKnightGame
 
             Position += velocity * Globals.Time;
         }
+
+        private float AttackFrameSpeed()
+        {
+            return _animationManager.Animation.FrameSpeed * _animationManager.Animation.FrameCount;
+        }
        
 
         private void UpdateAnimation()
@@ -142,8 +147,9 @@ namespace HeroKnightGame
                 _isNearPlayer = true;
                 _state = CharacterState.Attack;
                 velocity.X = 0;
-                if (_timerAttacking >= 0.8)
+                if (_timerAttacking >= AttackFrameSpeed())
                 {
+                    Debug.WriteLine(true);
                     _timerAttacking = 0;
                     Attacking(_player);
                 }
@@ -196,7 +202,6 @@ namespace HeroKnightGame
             UpdateVelocity();
             SetAnimtion();
             UpdatePosition();
-            
 
             player = _player;
 
