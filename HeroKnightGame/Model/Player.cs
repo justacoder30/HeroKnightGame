@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace HeroKnightGame
@@ -16,7 +17,7 @@ namespace HeroKnightGame
 
         public Player()
         {
-            _falling = true;
+            _falling = false;
             Speed = 180f;
             Gravity = 1000f;
             Jump = 410f;
@@ -55,6 +56,7 @@ namespace HeroKnightGame
                     var newRect = CalculateBounds(new(Position.X, newPos.Y));
                     if (newRect.Intersects(collider))
                     {
+                        //if(velocity.Y > 0) Sound.Landing_Sound.Play(); 
                         if (newVelocity.Y > 0)
                         {
                             velocity.Y = 0;
@@ -62,6 +64,7 @@ namespace HeroKnightGame
                             return;
                         }
                     }
+                    else _falling = true;
                 }
             }
 
@@ -80,10 +83,11 @@ namespace HeroKnightGame
                             return;
                         }
                     }
+                    else _falling = true;
                 }
             }
 
-            velocity.Y += Gravity * Globals.Time;
+            if(_falling) velocity.Y += Gravity * Globals.Time;
         }
 
         private void UpdateVelocity()
@@ -125,7 +129,6 @@ namespace HeroKnightGame
 
                     if (newRect.Intersects(collider))
                     {
-                        Sound.Landing_Sound.Play();
                         newPos.Y = collider.Top - _texture_Height;
                         _falling = false;
                         velocity.Y = 0;
@@ -156,10 +159,7 @@ namespace HeroKnightGame
                     {
                         if (velocity.Y > 0)
                         {
-                            
                             newPos.Y = collider.Top - _texture_Height;
-                            _falling = false;
-                            velocity.Y = 0;
                         }
                         else
                         {
