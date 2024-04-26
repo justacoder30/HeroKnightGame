@@ -187,6 +187,12 @@
 /processorParam:Quality=Best
 /build:SoundFX/attack_sound.wav
 
+#begin SoundFX/footstep_sound.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundFX/footstep_sound.mp3
+
 #begin SoundFX/landing_sound.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor

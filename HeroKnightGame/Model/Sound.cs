@@ -6,11 +6,13 @@ namespace HeroKnightGame
     {
         public static SoundEffect Attack_Sound;
         public static SoundEffect Landing_Sound;
+        public static SoundEffect Stepping_Sound;
 
         public static void Intit()
         {
             Attack_Sound = Globals.Content.Load<SoundEffect>("SoundFX/attack_sound");
             Landing_Sound = Globals.Content.Load<SoundEffect>("SoundFX/landing_sound");
-        } 
+            Stepping_Sound = Globals.Content.Load<SoundEffect>("SoundFX/footstep_sound");
+        }
     }
 }

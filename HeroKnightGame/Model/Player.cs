@@ -11,13 +11,14 @@ namespace HeroKnightGame
     {
         private KeyboardState _currentKeySate;
         private KeyboardState _prevKeySate;
+        private CharacterState _prevSate;
+        private CharacterState _currentSate;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
 
         public Player()
         {
-            _falling = false;
             Speed = 180f;
             Gravity = 1000f;
             Jump = 410f;
@@ -178,6 +179,13 @@ namespace HeroKnightGame
                 }
             }
         }
+        private void Updatesound()
+        {
+            _prevSate = _currentSate;
+            _currentSate = _state;
+
+            if(_currentSate == CharacterState.Run && _prevSate != CharacterState.Run) Sound.Stepping_Sound.Play();
+        }
 
         private void UpdateAnimation()
         {
@@ -255,7 +263,7 @@ namespace HeroKnightGame
             UpdateVelocity();
             UpdatePosition();
             SetAnimtion();
-            
+            Updatesound();
         }
 
         public new void Draw()
