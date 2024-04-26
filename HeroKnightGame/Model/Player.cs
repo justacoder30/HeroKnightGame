@@ -70,7 +70,6 @@ namespace HeroKnightGame
                 var newRect = CalculateBounds(new(Position.X, newPos.Y));
                 if (newRect.Intersects(collider))
                 {
-                    //if(velocity.Y > 0) Sound.Landing_Sound.Play(); 
                     if (newVelocity.Y > 0)
                     {
                         velocity.Y = 0;
@@ -80,8 +79,7 @@ namespace HeroKnightGame
                 }
             }
 
-            if (_falling) velocity.Y += Gravity * Globals.Time;
-            else Debug.WriteLine(true);
+            velocity.Y += Gravity * Globals.Time;
         }
 
         private void UpdateVelocity()
@@ -128,9 +126,7 @@ namespace HeroKnightGame
                         velocity.Y = 0;
 
                     }
-                }
-                    
-                
+                }  
             }
 
             foreach (var collider in Map.GetMapCollision)
