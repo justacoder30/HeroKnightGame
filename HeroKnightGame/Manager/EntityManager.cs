@@ -14,6 +14,7 @@ namespace HeroKnightGame
 
         public EntityManager()
         {
+            Sound.Intit();
             _render = new Renderer();
             _map = new Map();
             _player = new Player();

@@ -181,3 +181,15 @@
 /processorParam:TextureFormat=Color
 /build:Player/Run.png
 
+#begin SoundFX/attack_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundFX/attack_sound.wav
+
+#begin SoundFX/landing_sound.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundFX/landing_sound.mp3
+

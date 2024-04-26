@@ -125,6 +125,7 @@ namespace HeroKnightGame
 
                     if (newRect.Intersects(collider))
                     {
+                        Sound.Landing_Sound.Play();
                         newPos.Y = collider.Top - _texture_Height;
                         _falling = false;
                         velocity.Y = 0;
@@ -155,6 +156,7 @@ namespace HeroKnightGame
                     {
                         if (velocity.Y > 0)
                         {
+                            
                             newPos.Y = collider.Top - _texture_Height;
                             _falling = false;
                             velocity.Y = 0;
@@ -174,6 +176,8 @@ namespace HeroKnightGame
         public void Attacking()
         {
             var rect = GetAttackBound();
+
+            Sound.Attack_Sound.Play();
 
             for (int i = 0; i < EnemyManager.enemies.Count; i++)
             {
@@ -210,7 +214,7 @@ namespace HeroKnightGame
                 }
                 else 
                 {
-                    if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyDown(Keys.J) && !_animationManager.IsAnimationRunning)
+                    if (_currentKeySate.IsKeyDown(Keys.J) && _prevKeySate.IsKeyUp(Keys.J) && !_animationManager.IsAnimationRunning)
                     {
                         _state = CharacterState.Attack;
                         _animationManager.IsAnimationRunning = true;
