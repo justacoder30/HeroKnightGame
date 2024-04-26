@@ -49,45 +49,39 @@ namespace HeroKnightGame
             newVelocity.Y = velocity.Y + Gravity * Globals.Time;
             Vector2 newPos = Position + newVelocity * Globals.Time;
 
-            foreach (var collider in Map.GetMapCollision)
-            {
-                if (newPos.Y != Position.Y)
-                {
-                    var newRect = CalculateBounds(new(Position.X, newPos.Y));
-                    if (newRect.Intersects(collider))
-                    {
-                        //if(velocity.Y > 0) Sound.Landing_Sound.Play(); 
-                        if (newVelocity.Y > 0)
-                        {
-                            velocity.Y = 0;
-                            _falling = false;
-                            return;
-                        }
-                    }
-                    else _falling = true;
-                }
-            }
-
             foreach (var collider in Map.GetHolderCollision)
             {
-                if (newPos.Y != Position.Y)
-                {
-                    var newRect = CalculateBounds(new(Position.X, newPos.Y));
+                var newRect = CalculateBounds(new(Position.X, newPos.Y));
 
-                    if (newRect.Intersects(collider))
+                if (newRect.Intersects(collider))
+                {
+                    if (newVelocity.Y > 0)
                     {
-                        if (newVelocity.Y > 0)
-                        {
-                            _falling = false;
-                            velocity.Y = 0;
-                            return;
-                        }
+                        _falling = false;
+                        velocity.Y = 0;
+                        return;
                     }
-                    else _falling = true;
+                }
+                
+            }
+
+            foreach (var collider in Map.GetMapCollision)
+            {
+                var newRect = CalculateBounds(new(Position.X, newPos.Y));
+                if (newRect.Intersects(collider))
+                {
+                    //if(velocity.Y > 0) Sound.Landing_Sound.Play(); 
+                    if (newVelocity.Y > 0)
+                    {
+                        velocity.Y = 0;
+                        _falling = false;
+                        return;
+                    }
                 }
             }
 
-            if(_falling) velocity.Y += Gravity * Globals.Time;
+            if (_falling) velocity.Y += Gravity * Globals.Time;
+            else Debug.WriteLine(true);
         }
 
         private void UpdateVelocity()
