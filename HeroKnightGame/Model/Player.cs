@@ -70,8 +70,7 @@ namespace HeroKnightGame
             _prevKeySate = _currentKeySate;
             _currentKeySate = Keyboard.GetState();
 
-            if (_falling) velocity.X *= 0.99f;
-            else velocity.X = 0;
+            velocity.X = 0;
 
             if (_currentKeySate.IsKeyDown(Keys.D)) 
             {
