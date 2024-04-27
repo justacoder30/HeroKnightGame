@@ -46,28 +46,21 @@ namespace HeroKnightGame
 
         private Rectangle GravityBounds(Vector2 pos)
         {
-            return new((int)pos.X + OFFSET_Width, (int)pos.Y + _texture_Height, _texture_Width - OFFSET_Width * 2, 5);
+            return new((int)pos.X + OFFSET_Width, (int)pos.Y + _texture_Height, _texture_Width - OFFSET_Width * 2, 1);
         }
 
         private void ApplyGravity()
         {
             var newRect = GravityBounds(new(Position.X, Position.Y));
+
             foreach (var collider in Map.GetMapCollision)
             {
-                if (newRect.Intersects(collider))
-                {
-                    return;
-                }
+                if (newRect.Intersects(collider)) return;
             }
 
             foreach (var collider in Map.GetHolderCollision)
             {
-
-                if (newRect.Intersects(collider))
-                {
-                    return;
-                }
-
+                if (newRect.Intersects(collider)) return;
             }
 
             velocity.Y += Gravity * Globals.Time;
@@ -78,7 +71,7 @@ namespace HeroKnightGame
             _prevKeySate = _currentKeySate;
             _currentKeySate = Keyboard.GetState();
 
-            if (_falling) velocity.X *= 0.5f;
+            if (_falling) velocity.X *= 0.99f;
             else velocity.X = 0;
 
             if (_currentKeySate.IsKeyDown(Keys.D)) 
