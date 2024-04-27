@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace HeroKnightGame
@@ -149,7 +148,6 @@ namespace HeroKnightGame
                 velocity.X = 0;
                 if (_timerAttacking >= AttackFrameSpeed())
                 {
-                    Debug.WriteLine(true);
                     _timerAttacking = 0;
                     Attacking(_player);
                 }
