@@ -44,40 +44,30 @@ namespace HeroKnightGame
             _texture_Height = _animationManager.Animation.FrameHeight;
         }
 
+        private Rectangle GravityBounds(Vector2 pos)
+        {
+            return new((int)pos.X + OFFSET_Width, (int)pos.Y + _texture_Height, _texture_Width - OFFSET_Width * 2, 5);
+        }
+
         private void ApplyGravity()
         {
-            Vector2 newVelocity = new Vector2();
-            newVelocity.Y = velocity.Y + Gravity * Globals.Time;
-            Vector2 newPos = Position + newVelocity * Globals.Time;
+            var newRect = GravityBounds(new(Position.X, Position.Y));
+            foreach (var collider in Map.GetMapCollision)
+            {
+                if (newRect.Intersects(collider))
+                {
+                    return;
+                }
+            }
 
             foreach (var collider in Map.GetHolderCollision)
             {
-                var newRect = CalculateBounds(new(Position.X, newPos.Y));
 
                 if (newRect.Intersects(collider))
                 {
-                    if (newVelocity.Y > 0)
-                    {
-                        _falling = false;
-                        velocity.Y = 0;
-                        return;
-                    }
+                    return;
                 }
-                
-            }
 
-            foreach (var collider in Map.GetMapCollision)
-            {
-                var newRect = CalculateBounds(new(Position.X, newPos.Y));
-                if (newRect.Intersects(collider))
-                {
-                    if (newVelocity.Y > 0)
-                    {
-                        velocity.Y = 0;
-                        _falling = false;
-                        return;
-                    }
-                }
             }
 
             velocity.Y += Gravity * Globals.Time;
@@ -88,7 +78,8 @@ namespace HeroKnightGame
             _prevKeySate = _currentKeySate;
             _currentKeySate = Keyboard.GetState();
 
-            velocity.X *= 0f;
+            if (_falling) velocity.X *= 0.5f;
+            else velocity.X = 0;
 
             if (_currentKeySate.IsKeyDown(Keys.D)) 
             {
@@ -148,11 +139,13 @@ namespace HeroKnightGame
 
                     if (newRect.Intersects(collider))
                     {
-                        if (velocity.Y > 0)
+                        if (newPos.Y > Position.Y)
                         {
                             newPos.Y = collider.Top - _texture_Height;
+                            _falling = false;
+                            velocity.Y = 0;
                         }
-                        else
+                        else if (newPos.Y < Position.Y) 
                         {
                             newPos.Y = collider.Bottom - OFFSET_Height;
                             velocity.Y = 0;
@@ -185,6 +178,7 @@ namespace HeroKnightGame
             _currentSate = _state;
 
             if(_currentSate == CharacterState.Run && _prevSate != CharacterState.Run) Sound.Stepping_Sound.Play();
+            if(_currentSate != CharacterState.Fall && _prevSate == CharacterState.Fall) Sound.Landing_Sound.Play();
         }
 
         private void UpdateAnimation()

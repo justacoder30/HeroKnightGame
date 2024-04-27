@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="300" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="132">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="300" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="134">
  <tileset firstgid="1" source="Dungeon Tile Set.tsx"/>
  <layer id="1" name="Tile Layer 1" width="300" height="40">
   <data encoding="csv">
@@ -105,18 +105,18 @@
   <object id="104" x="1712" y="400" width="80" height="176"/>
   <object id="106" x="1888" y="400" width="80" height="176"/>
  </objectgroup>
- <objectgroup id="4" name="HolderCollider" visible="0">
-  <object id="44" x="4192" y="464" width="80" height="16"/>
-  <object id="45" x="4192" y="544" width="80" height="16"/>
-  <object id="46" x="3152" y="544" width="48" height="16"/>
-  <object id="47" x="1792" y="416" width="96" height="16"/>
-  <object id="48" x="1792" y="480" width="96" height="16"/>
-  <object id="49" x="1792" y="560" width="96" height="16"/>
-  <object id="50" x="992" y="464" width="64" height="16"/>
-  <object id="51" x="992" y="544" width="64" height="16"/>
-  <object id="52" x="16" y="384" width="80" height="16"/>
-  <object id="53" x="16" y="464" width="80" height="16"/>
-  <object id="54" x="16" y="544" width="80" height="16"/>
+ <objectgroup id="4" name="HolderCollider">
+  <object id="44" x="4192" y="466.5" width="80" height="13.5"/>
+  <object id="45" x="4192" y="546.25" width="80" height="13.75"/>
+  <object id="46" x="3152" y="546.5" width="48" height="13.5"/>
+  <object id="47" x="1792" y="418.5" width="96" height="13.5"/>
+  <object id="48" x="1792" y="481.75" width="96" height="14.25"/>
+  <object id="49" x="1792" y="562.25" width="96" height="13.75"/>
+  <object id="50" x="992" y="466.5" width="64" height="13.5"/>
+  <object id="51" x="992" y="546.5" width="64" height="13.5"/>
+  <object id="52" x="16" y="386" width="80" height="14"/>
+  <object id="53" x="16" y="466.25" width="80" height="13.75"/>
+  <object id="54" x="16" y="545.75" width="80" height="14.25"/>
  </objectgroup>
  <objectgroup id="5" name="EnemyCollider" visible="0">
   <object id="69" x="80" y="320" width="16" height="48"/>
