@@ -12,6 +12,7 @@ namespace HeroKnightGame
         private KeyboardState _prevKeySate;
         private CharacterState _prevState;
         private CharacterState _currentState;
+        private float _time;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -174,7 +175,11 @@ namespace HeroKnightGame
             _currentState = _state;
 
             if(_currentState == CharacterState.Attack && _prevState != CharacterState.Attack) Sound.Attack_Sound.Play(0.45f, 0f, 0f);
-            if (_currentState == CharacterState.Run && _prevState != CharacterState.Run) Sound.Stepping_Sound.Play();
+            if (velocity.X != 0)
+            {
+                _time += Globals.Time;
+                Sound.Stepping_Sound.Play();
+            }
             if(velocity.Y == 0 && _prevState == CharacterState.Fall) Sound.Landing_Sound.Play(0.3f, 0f, 0f);
         }
 
