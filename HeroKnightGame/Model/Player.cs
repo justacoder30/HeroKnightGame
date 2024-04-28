@@ -10,8 +10,8 @@ namespace HeroKnightGame
     {
         private KeyboardState _currentKeySate;
         private KeyboardState _prevKeySate;
-        private CharacterState _prevSate;
-        private CharacterState _currentSate;
+        private CharacterState _prevState;
+        private CharacterState _currentState;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -152,8 +152,6 @@ namespace HeroKnightGame
         {
             var rect = GetAttackBound();
 
-            Sound.Attack_Sound.Play();
-
             for (int i = 0; i < EnemyManager.enemies.Count; i++)
             {
                 if (rect.Intersects(EnemyManager.enemies[i].CalculateBounds()))
@@ -165,11 +163,12 @@ namespace HeroKnightGame
         }
         private void Updatesound()
         {
-            _prevSate = _currentSate;
-            _currentSate = _state;
+            _prevState = _currentState;
+            _currentState = _state;
 
-            if(_currentSate == CharacterState.Run && _prevSate != CharacterState.Run) Sound.Stepping_Sound.Play();
-            if(_currentSate != CharacterState.Fall && _prevSate == CharacterState.Fall) Sound.Landing_Sound.Play();
+            if(_currentState == CharacterState.Attack && _prevState != CharacterState.Attack) Sound.Attack_Sound.Play(0.45f, 0f, 0f);
+            if (_currentState == CharacterState.Run && _prevState != CharacterState.Run) Sound.Stepping_Sound.Play();
+            if(velocity.Y == 0 && _prevState == CharacterState.Fall) Sound.Landing_Sound.Play(0.3f, 0f, 0f);
         }
 
         private void UpdateAnimation()

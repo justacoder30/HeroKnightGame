@@ -109,6 +109,12 @@
 /processorParam:TextureFormat=Color
 /build:Map/Dungeon Tile Set.png
 
+#begin Music/Background_music.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Background_music.ogg
+
 #begin Player/Attack.png
 /importer:TextureImporter
 /processor:TextureProcessor

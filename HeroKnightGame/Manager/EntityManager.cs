@@ -14,15 +14,17 @@ namespace HeroKnightGame
 
         public EntityManager()
         {
-            Sound.Intit();
+            Sound.IntitSound();
+
             _render = new Renderer();
             _map = new Map();
             _player = new Player();
             _enemyManager = new EnemyManager();
             _render.SetResolution(1920, 1080);
-
             _camera = new Camera();
             _backGround = new Sprite(Globals.Content.Load<Texture2D>("Background"), new(0, 0));
+
+            Sound.PlayMusic();
         }
 
         public void Update()
