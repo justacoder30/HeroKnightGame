@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using HeroKnightGame.Manager;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace HeroKnightGame
@@ -14,7 +15,7 @@ namespace HeroKnightGame
 
         public EntityManager()
         {
-            Sound.IntitSound();
+            SoundManager.Init();
 
             _render = new Renderer();
             _map = new Map();
@@ -24,7 +25,7 @@ namespace HeroKnightGame
             _camera = new Camera();
             _backGround = new Sprite(Globals.Content.Load<Texture2D>("Background"), new(0, 0));
 
-            Sound.PlayMusic();
+            SoundManager.PlayMusic();
         }
 
         public void Update()

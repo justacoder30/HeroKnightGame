@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HeroKnightGame.Manager;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -12,7 +14,6 @@ namespace HeroKnightGame
         private KeyboardState _prevKeySate;
         private CharacterState _prevState;
         private CharacterState _currentState;
-        private float _time;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -174,13 +175,9 @@ namespace HeroKnightGame
             _prevState = _currentState;
             _currentState = _state;
 
-            if(_currentState == CharacterState.Attack && _prevState != CharacterState.Attack) Sound.Attack_Sound.Play(0.45f, 0f, 0f);
-            if (velocity.X != 0)
-            {
-                _time += Globals.Time;
-                Sound.Stepping_Sound.Play();
-            }
-            if(velocity.Y == 0 && _prevState == CharacterState.Fall) Sound.Landing_Sound.Play(0.3f, 0f, 0f);
+            if (_currentState == CharacterState.Attack && _prevState != CharacterState.Attack) SoundManager.PlaySound("Attack_sound", 0.45f);
+            if (velocity.Y == 0 && _prevState == CharacterState.Fall) SoundManager.PlaySound("Landing_sound", 0.3f);
+            if (_currentState == CharacterState.Run) SoundManager.PlaySound("Footstep_sound", 1f, true);
         }
 
         private void UpdateAnimation()
