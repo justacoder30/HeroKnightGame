@@ -114,11 +114,6 @@ namespace HeroKnightGame
                 }  
             }
 
-
-            //Tinh toan vi tri moi cho nhan vat
-            Vector2 newPos = Position + velocity * Globals.Time;
-            Rectangle newRect;
-
             //Tinh toan su ly va cham voi Map Collision
             foreach (var collider in Map.GetMapCollision)
             {
