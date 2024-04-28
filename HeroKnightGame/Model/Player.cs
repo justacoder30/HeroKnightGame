@@ -90,11 +90,13 @@ namespace HeroKnightGame
             ApplyGravity();
         }
 
+        //Cap nhap vi tri cua nhan vat
         protected void UpdatePosition()
         {
             
             Vector2 newPos = Position + velocity * Globals.Time;
             Rectangle newRect;
+
 
             foreach (var collider in Map.GetHolderCollision)
             {
@@ -112,8 +114,15 @@ namespace HeroKnightGame
                 }  
             }
 
+
+            //Tinh toan vi tri moi cho nhan vat
+            Vector2 newPos = Position + velocity * Globals.Time;
+            Rectangle newRect;
+
+            //Tinh toan su ly va cham voi Map Collision
             foreach (var collider in Map.GetMapCollision)
             {
+                //Khi nhan vat di chuyen theo chieu ngang
                 if (newPos.X != Position.X)
                 {
                     newRect = CalculateBounds(new(newPos.X, Position.Y));
@@ -124,6 +133,8 @@ namespace HeroKnightGame
                         continue;
                     }
                 }
+
+                //Khi nhan vat di chuyen theo chieu doc
                 if (newPos.Y != Position.Y)
                 {
                     newRect = CalculateBounds(new(Position.X, newPos.Y));
@@ -145,6 +156,7 @@ namespace HeroKnightGame
                 }  
             }
 
+            //Gan vi tri cua nhan vat cho vi tri moi da duoc tinh toan
             Position = newPos; 
         }
 
