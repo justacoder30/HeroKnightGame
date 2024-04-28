@@ -221,7 +221,7 @@ namespace HeroKnightGame
             else if (velocity.Y < 0) _state = CharacterState.Jump;
             else if (velocity.Y > 0) _state = CharacterState.Fall;
         }
-        //
+        
         private void SetAnimtion()
         {
             _animationManager.Update();
