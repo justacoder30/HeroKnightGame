@@ -11,7 +11,6 @@ namespace HeroKnightGame
     {
         private float _timeChange;
         private float _timer;
-        private float _timerAttacking;
         private bool _isNearPlayer;
         private Player _player;
 
@@ -114,12 +113,6 @@ namespace HeroKnightGame
             Position += velocity * Globals.Time;
         }
 
-        private float AttackFrameSpeed()
-        {
-            return _animationManager.Animation.FrameSpeed * _animationManager.Animation.FrameCount;
-        }
-       
-
         private void UpdateAnimation()
         {
             if (!_animationManager.IsAnimationRunning && _state == CharacterState.Death)
@@ -142,13 +135,10 @@ namespace HeroKnightGame
             }
             if(IsAttackRange(_player))
             {
-                _timerAttacking += Globals.Time;
-                _isNearPlayer = true;
                 _state = CharacterState.Attack;
                 velocity.X = 0;
-                if (_timerAttacking >= AttackFrameSpeed())
+                if (_animationManager.Animation.CurrentFrame == _animationManager.Animation.FrameCount - 1)
                 {
-                    _timerAttacking = 0;
                     Attacking(_player);
                 }
                 return;
