@@ -101,11 +101,10 @@
   <object id="38" x="336" y="496" width="208" height="64"/>
   <object id="39" x="96" y="368" width="128" height="192"/>
   <object id="100" x="4272" y="432" width="80" height="144"/>
-  <object id="101" x="4384.33" y="517"/>
   <object id="104" x="1712" y="400" width="80" height="176"/>
   <object id="106" x="1888" y="400" width="80" height="176"/>
  </objectgroup>
- <objectgroup id="4" name="HolderCollider">
+ <objectgroup id="4" name="HolderCollider" visible="0">
   <object id="44" x="4192" y="466.5" width="80" height="13.5"/>
   <object id="45" x="4192" y="546.25" width="80" height="13.75"/>
   <object id="46" x="3152" y="546.5" width="48" height="13.5"/>
