@@ -7,8 +7,6 @@ namespace HeroKnightGame
 {
     public class Coin : Model
     {
-
-
         public Coin(Vector2 pos)
         {
             Position = pos;
