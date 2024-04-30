@@ -72,6 +72,19 @@ namespace HeroKnightGame
             return _pos;
         }
 
+        public static List<Vector2> GetCoinPosition()
+        {
+            TiledLayer _coinPos = map.Layers.First(c => c.name == "CoinPosition");
+            List<Vector2> _pos = new List<Vector2>();
+
+            foreach (var obj in _coinPos.objects)
+            {
+                _pos.Add(new Vector2(obj.x, obj.y));
+            }
+
+            return _pos;
+        }
+
         public void Draw()
         {
             Globals.SpriteBatch.Draw(_texture, new Vector2(0, 0), Color.White);

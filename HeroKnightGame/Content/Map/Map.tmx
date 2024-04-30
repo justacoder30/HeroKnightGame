@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="300" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="135">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="300" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="170">
  <tileset firstgid="1" source="Dungeon Tile Set.tsx"/>
  <layer id="1" name="Tile Layer 1" width="300" height="40">
   <data encoding="csv">
@@ -71,6 +71,40 @@
   <object id="129" x="4016" y="368" width="96" height="64"/>
   <object id="130" x="1776" y="560" width="96" height="64"/>
   <object id="131" x="2224" y="320" width="96" height="64"/>
+ </objectgroup>
+ <objectgroup id="12" name="CoinPosition">
+  <object id="135" x="144" y="288" width="16" height="16"/>
+  <object id="137" x="736" y="528" width="16" height="16"/>
+  <object id="138" x="800" y="528" width="16" height="16"/>
+  <object id="139" x="864" y="528" width="16" height="16"/>
+  <object id="140" x="768" y="368" width="16" height="16"/>
+  <object id="141" x="880" y="368" width="16" height="16"/>
+  <object id="142" x="1200" y="528" width="16" height="16"/>
+  <object id="143" x="1264" y="528" width="16" height="16"/>
+  <object id="144" x="1328" y="528" width="16" height="16"/>
+  <object id="145" x="1392" y="528" width="16" height="16"/>
+  <object id="146" x="1536" y="528" width="16" height="16"/>
+  <object id="147" x="1616" y="528" width="16" height="16"/>
+  <object id="148" x="2064" y="528" width="16" height="16"/>
+  <object id="149" x="2128" y="528" width="16" height="16"/>
+  <object id="150" x="2208" y="528" width="16" height="16"/>
+  <object id="151" x="2288" y="528" width="16" height="16"/>
+  <object id="152" x="2096" y="304" width="16" height="16"/>
+  <object id="153" x="2160" y="304" width="16" height="16"/>
+  <object id="154" x="2224" y="304" width="16" height="16"/>
+  <object id="155" x="2576" y="528" width="16" height="16"/>
+  <object id="156" x="2656" y="528" width="16" height="16"/>
+  <object id="157" x="2736" y="528" width="16" height="16"/>
+  <object id="158" x="2816" y="528" width="16" height="16"/>
+  <object id="159" x="2624" y="303.667" width="16" height="16"/>
+  <object id="160" x="2704" y="304" width="16" height="16"/>
+  <object id="161" x="2784" y="304" width="16" height="16"/>
+  <object id="162" x="3248" y="464" width="16" height="16"/>
+  <object id="165" x="4000" y="384" width="16" height="16"/>
+  <object id="166" x="4080" y="384" width="16" height="16"/>
+  <object id="167" x="4512" y="560" width="16" height="16"/>
+  <object id="168" x="4576" y="560" width="16" height="16"/>
+  <object id="169" x="4448" y="560" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="3" name="MapCollider" visible="0">
   <object id="1" x="0" y="0" width="16" height="640"/>
