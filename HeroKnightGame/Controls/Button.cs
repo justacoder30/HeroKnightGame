@@ -85,7 +85,7 @@ namespace HeroKnightGame
         {
             var colour = Color.White;
 
-            if (_isHovering) colour = Color.Red;
+            if (_isHovering) colour = Color.Green;
 
             Globals.SpriteBatch.Draw(_texture, Rectangle, colour);
 
