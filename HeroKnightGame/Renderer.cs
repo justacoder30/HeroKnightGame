@@ -10,7 +10,8 @@ namespace HeroKnightGame
         private static Rectangle Rectangle;
         private static bool FullScreen = false;
         private static int _width;
-        private static int _height;    
+        private static int _height;   
+        public static float Scale { get; private set; }
 
         public Renderer()
         {
@@ -23,10 +24,10 @@ namespace HeroKnightGame
 
             float scaleX = (float)screenSize.Width / _target.Width;
             float scaleY = (float)screenSize.Height / _target.Height;
-            float scale = Math.Min(scaleX, scaleY);
+            Scale = Math.Min(scaleX, scaleY);
 
-            int newWidth = (int)(_target.Width * scale);
-            int newHeight = (int)(_target.Height * scale);
+            int newWidth = (int)(_target.Width * Scale);
+            int newHeight = (int)(_target.Height * Scale);
 
             int posX = (screenSize.Width - newWidth) / 2;
             int posY = (screenSize.Height - newHeight) / 2;
@@ -34,7 +35,7 @@ namespace HeroKnightGame
             Rectangle = new Rectangle(posX, posY, newWidth, newHeight);
         }
 
-        public void SetResolution(int width, int height)
+        public static void SetResolution(int width, int height)
         {
             _width = width;
             _height = height;
@@ -50,7 +51,7 @@ namespace HeroKnightGame
             Globals.Graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             Globals.Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             Globals.Graphics.HardwareModeSwitch = false;
-            Globals.Graphics.IsFullScreen = FullScreen;
+            Globals.Game.Window.IsBorderless = FullScreen;
             Globals.Graphics.ApplyChanges();
             SetDestinationRectangle();
         }
@@ -59,7 +60,7 @@ namespace HeroKnightGame
         {
             Globals.Graphics.PreferredBackBufferWidth = _width;
             Globals.Graphics.PreferredBackBufferHeight = _height;
-            Globals.Graphics.IsFullScreen = FullScreen;
+            Globals.Game.Window.IsBorderless = FullScreen;
             Globals.Graphics.ApplyChanges();
             SetDestinationRectangle();
         }
@@ -69,7 +70,6 @@ namespace HeroKnightGame
             FullScreen = !FullScreen;
             if (FullScreen) SetFullScreen();
             else UnsetFullScreen();
-
         }
 
         public void Activate()

@@ -18,6 +18,7 @@ namespace HeroKnightGame.Manager
             sounds.Add(new Sound("Landing_sound", Globals.Content.Load<SoundEffect>("SoundFX/landing_sound")));
             sounds.Add(new Sound("Footstep_sound", Globals.Content.Load<SoundEffect>("SoundFX/footstep_sound")));
             sounds.Add(new Sound("Coin_sound", Globals.Content.Load<SoundEffect>("SoundFX/coin_sound")));
+            sounds.Add(new Sound("GameLose_sound", Globals.Content.Load<SoundEffect>("SoundFX/GameLose_sound")));
 
             Background_music = Globals.Content.Load<Song>("Music/Background_music");
         }
@@ -52,6 +53,16 @@ namespace HeroKnightGame.Manager
             MediaPlayer.Play(Background_music);
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.3f;
+        }
+
+        public static void Resume()
+        {
+            MediaPlayer.Resume();
+        }
+
+        public static void StopMusic()
+        {
+            MediaPlayer.Stop();
         }
     }
 }

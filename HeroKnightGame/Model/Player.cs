@@ -184,7 +184,8 @@ namespace HeroKnightGame
         {
             if (!_animationManager.IsAnimationRunning && _state == CharacterState.Death)
             {
-                Globals.Game.Exit();
+                SoundManager.PlaySound("GameLose_sound", 0.2f);
+                EntityManager.IsEndGame = true;
                 return;
             }
             if (_state == CharacterState.Death || HP <= 0)
