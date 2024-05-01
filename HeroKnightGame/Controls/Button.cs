@@ -68,8 +68,6 @@ namespace HeroKnightGame
 
             var mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
 
-            _isHovering = false;
-
             if (mouseRectangle.Intersects(RectangleScale))
             {
                 _isHovering = true;
@@ -79,6 +77,7 @@ namespace HeroKnightGame
                     Click.Invoke(this, new EventArgs());
                 }
             }
+            else _isHovering = false;
         }
 
         //Vẽ nút lên màn hình.
@@ -86,7 +85,7 @@ namespace HeroKnightGame
         {
             var colour = Color.White;
 
-            if (_isHovering) colour = Color.Gray;
+            if (_isHovering) colour = Color.Red;
 
             Globals.SpriteBatch.Draw(_texture, Rectangle, colour);
 
