@@ -17,7 +17,7 @@ namespace HeroKnightGame
             var buttonTexture = Globals.Content.Load<Texture2D>("Button/Button");
             var buttonFont = Globals.Content.Load<SpriteFont>("Fonts/Font");
 
-            Button StartButton = new Button(buttonTexture, buttonFont)
+            /*Button StartButton = new Button(buttonTexture, buttonFont)
             {
                 Position = new Vector2(144, 80),
                 Text = "Start",
@@ -28,6 +28,18 @@ namespace HeroKnightGame
             {
                 Position = new Vector2(144, 144),
                 Text = "Quit",
+            };
+            QuitButton.Click += QuitButton_Click;*/
+
+            Button StartButton = new Button(Globals.Content.Load<Texture2D>("Button/Play Button"), null)
+            {
+                Position = new Vector2(176, 96),
+            };
+            StartButton.Click += StartButton_Click;
+
+            Button QuitButton = new Button(Globals.Content.Load<Texture2D>("Button/Quit Button"), buttonFont)
+            {
+                Position = new Vector2(176, 160),
             };
             QuitButton.Click += QuitButton_Click;
 

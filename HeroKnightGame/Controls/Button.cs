@@ -32,7 +32,7 @@ namespace HeroKnightGame
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
+                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width/5, _texture.Height/5);
             }
         }
 
@@ -41,10 +41,10 @@ namespace HeroKnightGame
             get
             {
                 return new Rectangle(
-                                    (int)(Position.X * Renderer.Scale),
-                                    (int)(Position.Y * Renderer.Scale),
-                                    (int)(_texture.Width * Renderer.Scale),
-                                    (int)(_texture.Height * Renderer.Scale)
+                                    (int)(Rectangle.X * Renderer.Scale),
+                                    (int)(Rectangle.Y * Renderer.Scale),
+                                    (int)(Rectangle.Width * Renderer.Scale),
+                                    (int)(Rectangle.Height * Renderer.Scale)
                                     );
             }
         }
