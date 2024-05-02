@@ -92,8 +92,6 @@ namespace HeroKnightGame
                 velocity.Y = -Jump;
                 _falling = true;
             }
-
-            
         }
 
         //Cap nhap vi tri cua nhan vat
