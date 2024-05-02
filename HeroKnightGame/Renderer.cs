@@ -11,6 +11,8 @@ namespace HeroKnightGame
         private static bool FullScreen = false;
         private static int _width;
         private static int _height;   
+        public static int PosX { get; private set; }
+        public static int PosY { get; private set; }
         public static float Scale { get; private set; }
 
         public Renderer()
@@ -29,10 +31,10 @@ namespace HeroKnightGame
             int newWidth = (int)(_target.Width * Scale);
             int newHeight = (int)(_target.Height * Scale);
 
-            int posX = (screenSize.Width - newWidth) / 2;
-            int posY = (screenSize.Height - newHeight) / 2;
+            PosX = (screenSize.Width - newWidth) / 2;
+            PosY = (screenSize.Height - newHeight) / 2;
 
-            Rectangle = new Rectangle(posX, posY, newWidth, newHeight);
+            Rectangle = new Rectangle(PosX, PosY, newWidth, newHeight);
         }
 
         public static void SetResolution(int width, int height)

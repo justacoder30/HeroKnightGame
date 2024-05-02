@@ -41,8 +41,8 @@ namespace HeroKnightGame
             get
             {
                 return new Rectangle(
-                                    (int)(Rectangle.X * Renderer.Scale),
-                                    (int)(Rectangle.Y * Renderer.Scale),
+                                    (int)(Rectangle.X * Renderer.Scale) + Renderer.PosX,
+                                    (int)(Rectangle.Y * Renderer.Scale) + Renderer.PosY,
                                     (int)(Rectangle.Width * Renderer.Scale),
                                     (int)(Rectangle.Height * Renderer.Scale)
                                     );
@@ -58,6 +58,13 @@ namespace HeroKnightGame
             _font = font;
 
             PenColour = Color.Black;
+        }
+
+        public Button(Texture2D texture, Vector2 pos)
+        {
+            _texture = texture;
+
+            Position = pos;
         }
 
         //Cập nhật trạng thái của nút

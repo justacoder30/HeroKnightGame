@@ -14,20 +14,10 @@ namespace HeroKnightGame
         {
             _game = game;
 
-            var buttonTexture = Globals.Content.Load<Texture2D>("Button/Button");
-            var buttonFont = Globals.Content.Load<SpriteFont>("Fonts/Font");
-
-
-            Button StartButton = new Button(Globals.Content.Load<Texture2D>("Button/Play Button"), null)
-            {
-                Position = new Vector2(176, 96),
-            };
+            Button StartButton = new Button(Globals.Content.Load<Texture2D>("Button/Play Button"), new Vector2(176, 96));
             StartButton.Click += StartButton_Click;
 
-            Button QuitButton = new Button(Globals.Content.Load<Texture2D>("Button/Quit Button"), buttonFont)
-            {
-                Position = new Vector2(176, 160),
-            };
+            Button QuitButton = new Button(Globals.Content.Load<Texture2D>("Button/Quit Button"), new Vector2(176, 160));
             QuitButton.Click += QuitButton_Click;
 
             _buttons = new List<Button>()

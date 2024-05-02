@@ -7,10 +7,10 @@ namespace HeroKnightGame
 {
     public class EntityManager
     {
-
         private Player _player;
         private EnemyManager _enemyManager;
         private CoinManger _coinManger;
+        private Flag _flag;
         private Map _map;
         private Camera _camera;
         private Sprite _backGround;
@@ -20,6 +20,7 @@ namespace HeroKnightGame
         {
             _map = new Map();
             _player = new Player();
+            _flag = new Flag();
             _enemyManager = new EnemyManager();
             _coinManger = new CoinManger();
             _camera = new Camera();
@@ -33,6 +34,7 @@ namespace HeroKnightGame
             _player.Update();
             _enemyManager.Update(ref _player);
             _coinManger.Update(_player);
+            _flag.Update(_player);
             _camera.FollowPLayer(_player);
         }
 
@@ -44,6 +46,7 @@ namespace HeroKnightGame
 
             Globals.SpriteBatch.Begin(transformMatrix: _camera.Translation);
             _map.Draw();
+            _flag.Draw();
             _enemyManager.Draw();
             _coinManger.Draw();    
             _player.Draw();

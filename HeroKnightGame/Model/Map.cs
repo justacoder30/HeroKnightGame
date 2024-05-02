@@ -59,6 +59,13 @@ namespace HeroKnightGame
             return new Vector2(_playerPos.objects[0].x, _playerPos.objects[0].y);
         }
 
+        public static Vector2 GetFlatPosition()
+        {
+            TiledLayer _flatPos = map.Layers.First(f => f.name == "FlagPosition");
+
+            return new Vector2(_flatPos.objects[0].x, _flatPos.objects[0].y);
+        }
+
         public static List<Vector2> GetEnemyPosition()
         {
             TiledLayer _enemyPos = map.Layers.First(e => e.name == "EnemyPosition");
