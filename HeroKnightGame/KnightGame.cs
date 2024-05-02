@@ -47,8 +47,8 @@ namespace HeroKnightGame
             SoundManager.Init();
 
             _render = new Renderer();
-            Renderer.SetResolution(1920, 1080);
-            //Renderer.SetResolution(1280, 720);
+            //Renderer.SetResolution(1920, 1080);
+            Renderer.SetResolution(1280, 720);
 
             base.Initialize();
         }
