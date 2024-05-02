@@ -51,8 +51,8 @@ namespace HeroKnightGame
 
         protected Rectangle GetAttackBound()
         {
-            if (_effect == SpriteEffects.None) return new Rectangle((int)Position.X + _texture_Width - OFFSET_Width, (int)Position.Y, OFFSET_Width, OFFSET_Height);
-            return new Rectangle((int)Position.X, (int)Position.Y, OFFSET_Width, OFFSET_Height);
+            if (_effect == SpriteEffects.None) return new Rectangle((int)Position.X + _texture_Width - OFFSET_Width, (int)Position.Y + OFFSET_Height, OFFSET_Width, OFFSET_Height);
+            return new Rectangle((int)Position.X, (int)Position.Y + OFFSET_Height, OFFSET_Width, OFFSET_Height);
         }
 
         public void IsBeingHit(int damage)
