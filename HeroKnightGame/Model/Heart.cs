@@ -18,8 +18,6 @@ namespace HeroKnightGame
             _heartcount = (healthPoint-1) / 10 + 1;
 
             if (healthPoint <= 0) _heartcount = 0;
-
-            Debug.WriteLine(_heartcount);
         }
 
         public new void Draw()
