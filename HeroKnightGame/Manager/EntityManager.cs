@@ -23,7 +23,7 @@ namespace HeroKnightGame
             _enemyManager = new EnemyManager();
             _coinManger = new CoinManger();
             _camera = new Camera();
-            _backGround = new Sprite(Globals.Content.Load<Texture2D>("Background"), new(0, 0));
+            _backGround = new Sprite(Globals.Content.Load<Texture2D>("Background/BackgroundGame"), new(0, 0));
 
             SoundManager.PlayMusic();
         }

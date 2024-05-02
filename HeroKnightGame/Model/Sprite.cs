@@ -9,6 +9,9 @@ namespace HeroKnightGame
     {
         protected Texture2D _texture;
         public Vector2 Position {  get; set; }
+        public float TextureWidth { get => _texture.Width; }
+        public float TextureHeight {  get => _texture.Height; }
+        public Texture2D Texture { get => _texture; }
 
         public Sprite(Texture2D texture, Vector2 position)
         {

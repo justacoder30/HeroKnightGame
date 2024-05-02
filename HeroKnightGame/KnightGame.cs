@@ -12,6 +12,7 @@ namespace HeroKnightGame
         private GameState _currentState;
         private GameState _nextState;
         private GameState _prevState;
+        private Sprite _backgroundMenu;
 
         public GameState CurrentState { get; set; }
 
@@ -59,6 +60,7 @@ namespace HeroKnightGame
             // TODO: use this.Content to load your game content here
 
             _currentState = new MenuState(this);
+            _backgroundMenu = new Sprite(Globals.Content.Load<Texture2D>("Background/Background1"), new Vector2(0, 0));
         }
 
         protected override void Update(GameTime gameTime)
@@ -85,6 +87,14 @@ namespace HeroKnightGame
 
             _render.Activate();
             // TODO: Add your drawing code here
+
+            Globals.SpriteBatch.Begin();
+            Globals.SpriteBatch.Draw(_backgroundMenu.Texture,
+                                    new Rectangle(0, 0,
+                                    (int)_backgroundMenu.TextureWidth / 4,
+                                    (int)_backgroundMenu.TextureHeight / 4), 
+                                    Color.White);
+            Globals.SpriteBatch.End();
 
             _currentState.Draw();
 
