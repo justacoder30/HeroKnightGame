@@ -74,6 +74,8 @@ namespace HeroKnightGame
 
             velocity.X = 0;
 
+            ApplyGravity();
+
             if (_state == CharacterState.Death) return;
 
             if (_currentKeySate.IsKeyDown(Keys.D)) 
@@ -91,7 +93,7 @@ namespace HeroKnightGame
                 _falling = true;
             }
 
-            ApplyGravity();
+            
         }
 
         //Cap nhap vi tri cua nhan vat
