@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework;
 using HeroKnightGame.Manager;
+using Microsoft.Xna.Framework.Input;
 
 namespace HeroKnightGame
 {
-    public class StopState : GameState
+    public class PauseState : GameState
     {
         private List<Button> _buttons;
 
-        public StopState(KnightGame game)
+        public PauseState(KnightGame game)
         {
             _game = game;
 
@@ -48,6 +49,11 @@ namespace HeroKnightGame
 
         public override void Update()
         {
+            if (InputManager.CurrentKeySate.IsKeyDown(Keys.Escape) && InputManager.PrevKeySate.IsKeyUp(Keys.Escape))
+            {
+                _game.ChangePrevState();
+            }
+
             foreach (Button button in _buttons)
             {
                 button.Update();

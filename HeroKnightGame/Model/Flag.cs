@@ -12,9 +12,7 @@ namespace HeroKnightGame
 
         public Flag()
         {
-            /*Position = Map.GetFlatPosition();*/
-
-            Position = new Vector2(4640, 528);
+            Position = Map.GetFlagPosition();
 
             OFFSET_Height = 0;
             OFFSET_Width = 0;
@@ -22,7 +20,7 @@ namespace HeroKnightGame
             _animations = new Dictionary<string, Animation>();
 
             _animations.Add("No Flag", new Animation(Globals.Content.Load<Texture2D>("Item/No Flag"), 1));
-            _animations.Add("Flag Out", new Animation(Globals.Content.Load<Texture2D>("Item/Flag Out"), 26, 0.06f, true));
+            _animations.Add("Flag Out", new Animation(Globals.Content.Load<Texture2D>("Item/Flag Out"), 26, 0.07f, true));
 
             _animationManager = new AnimationManager(_animations.First().Value);
 
@@ -66,8 +64,12 @@ namespace HeroKnightGame
                 return;
             }
 
-            if (!_isTouched(_player)) _state = CharacterState.Idle;
-            else _state = CharacterState.Run;
+            if (!_isTouched(_player) && _state == CharacterState.Idle) _state = CharacterState.Idle;
+            else
+            {
+                _state = CharacterState.Run;
+                SoundManager.PlaySound("GameWin_sound", 1f, true);
+            }
         }
 
         public void Update(Player player)

@@ -16,10 +16,10 @@ namespace HeroKnightGame
         {
             _entityManager.Update();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (InputManager.CurrentKeySate.IsKeyDown(Keys.Escape) && InputManager.PrevKeySate.IsKeyUp(Keys.Escape))
             {
                 _game.SaveCurrentState();
-                _game.ChangeNextState(new StopState(_game));
+                _game.ChangeNextState(new PauseState(_game));
             }
 
             if(EntityManager.IsEndGame)

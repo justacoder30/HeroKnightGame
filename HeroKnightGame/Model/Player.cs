@@ -33,7 +33,7 @@ namespace HeroKnightGame
             _animations = new Dictionary<string, Animation>();
 
             _animations.Add("Idle", new Animation(Globals.Content.Load<Texture2D>("Player/Idle"), 10));
-            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player/Run"), 10, 0.051f));
+            _animations.Add("Run", new Animation(Globals.Content.Load<Texture2D>("Player/Run"), 10, 0.049f));
             _animations.Add("Jump", new Animation(Globals.Content.Load<Texture2D>("Player/Jump"), 3));
             _animations.Add("Fall", new Animation(Globals.Content.Load<Texture2D>("Player/Fall"), 3));
             _animations.Add("Attack", new Animation(Globals.Content.Load<Texture2D>("Player/Attack"), 6, 0.05f, true));
@@ -74,6 +74,8 @@ namespace HeroKnightGame
 
             velocity.X = 0;
 
+            if (_state == CharacterState.Death) return;
+
             if (_currentKeySate.IsKeyDown(Keys.D)) 
             {
                 velocity.X = Speed;
@@ -99,6 +101,18 @@ namespace HeroKnightGame
             Vector2 newPos = Position + velocity * Globals.Time;
             Rectangle newRect;
 
+
+            foreach (var collider in Map.GetTrapCollision)
+            {
+                newRect = CalculateBounds(new(Position.X, newPos.Y));
+
+                if (newRect.Intersects(collider))
+                {
+                    HP = 0;
+                    velocity.X = 0;
+                }
+                
+            }
 
             foreach (var collider in Map.GetHolderCollision)
             {

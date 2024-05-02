@@ -30,8 +30,6 @@ namespace HeroKnightGame
                     i--;
                 }
             }
-            
-
         }
 
         public void Draw()

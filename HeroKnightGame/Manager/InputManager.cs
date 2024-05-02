@@ -4,15 +4,15 @@ namespace HeroKnightGame
 {
     public static class InputManager
     {
-        static KeyboardState _currentKeySate;
-        static KeyboardState _prevKeySate;
+        public static KeyboardState CurrentKeySate;
+        public static KeyboardState PrevKeySate;
 
         public static void Update()
         {
-            _prevKeySate = _currentKeySate;
-            _currentKeySate = Keyboard.GetState();
+            PrevKeySate = CurrentKeySate;
+            CurrentKeySate = Keyboard.GetState();
 
-            if (_currentKeySate.IsKeyDown(Keys.F11) && _prevKeySate.IsKeyUp(Keys.F11)) Renderer.FullScreenToggle();
+            if (CurrentKeySate.IsKeyDown(Keys.F11) && PrevKeySate.IsKeyUp(Keys.F11)) Renderer.FullScreenToggle();
 
         }
     }

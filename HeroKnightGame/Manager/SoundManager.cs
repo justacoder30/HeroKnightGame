@@ -19,6 +19,9 @@ namespace HeroKnightGame.Manager
             sounds.Add(new Sound("Footstep_sound", Globals.Content.Load<SoundEffect>("SoundFX/footstep_sound")));
             sounds.Add(new Sound("Coin_sound", Globals.Content.Load<SoundEffect>("SoundFX/coin_sound")));
             sounds.Add(new Sound("GameLose_sound", Globals.Content.Load<SoundEffect>("SoundFX/GameLose_sound")));
+            sounds.Add(new Sound("GameWin_sound", Globals.Content.Load<SoundEffect>("SoundFX/WinGame_sound")));
+            sounds.Add(new Sound("ButtonChose_sound", Globals.Content.Load<SoundEffect>("SoundFX/ButtonChose_sound")));
+            sounds.Add(new Sound("ButtonClick_sound", Globals.Content.Load<SoundEffect>("SoundFX/ButtonClick_sound")));
 
             Background_music = Globals.Content.Load<Song>("Music/Background_music");
         }

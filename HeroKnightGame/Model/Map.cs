@@ -15,6 +15,7 @@ namespace HeroKnightGame
         public static List<Rectangle> GetHolderCollision;
         public static List<Rectangle> GetMapCollision;
         public static List<Rectangle> GetEnemyCollision;
+        public static List<Rectangle> GetTrapCollision;
         private static TiledMap map;
         private Texture2D _texture;
 
@@ -30,11 +31,13 @@ namespace HeroKnightGame
             TiledLayer _mapCollision = map.Layers.First(m => m.name == "MapCollider");
             TiledLayer _holderCollision = map.Layers.First(h => h.name == "HolderCollider");
             TiledLayer _enemyCollision = map.Layers.First(e => e.name == "EnemyCollider");
+            TiledLayer _trapCollision = map.Layers.First(t => t.name == "TrapCollider");
 
 
             GetMapCollision = new List<Rectangle>();
             GetHolderCollision = new List<Rectangle>();
             GetEnemyCollision = new List<Rectangle>();
+            GetTrapCollision = new List<Rectangle>();   
 
             foreach (var obj in _mapCollision.objects)
             {
@@ -50,6 +53,11 @@ namespace HeroKnightGame
             {
                 GetEnemyCollision.Add(new Rectangle((int)obj.x, (int)obj.y, (int)obj.width, (int)obj.height));
             }
+
+            foreach (var obj in _trapCollision.objects)
+            {
+                GetTrapCollision.Add(new Rectangle((int)obj.x, (int)obj.y, (int)obj.width, (int)obj.height));
+            }
         }
 
         public static Vector2 GetPlayerPosition()
@@ -59,7 +67,7 @@ namespace HeroKnightGame
             return new Vector2(_playerPos.objects[0].x, _playerPos.objects[0].y);
         }
 
-        public static Vector2 GetFlatPosition()
+        public static Vector2 GetFlagPosition()
         {
             TiledLayer _flatPos = map.Layers.First(f => f.name == "FlagPosition");
 

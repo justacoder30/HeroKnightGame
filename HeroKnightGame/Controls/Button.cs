@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using System.ComponentModel;
 using System;
+using HeroKnightGame.Manager;
 
 namespace HeroKnightGame
 {
@@ -77,10 +78,15 @@ namespace HeroKnightGame
 
             if (mouseRectangle.Intersects(RectangleScale))
             {
-                _isHovering = true;
+                if(!_isHovering)
+                {
+                    _isHovering = true;
+                    SoundManager.PlaySound("ButtonChose_sound");
+                }
 
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {   //click chưa 
+                    SoundManager.PlaySound("ButtonClick_sound");
                     Click.Invoke(this, new EventArgs());
                 }
             }
