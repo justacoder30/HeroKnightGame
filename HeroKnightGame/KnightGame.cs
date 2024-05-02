@@ -14,6 +14,7 @@ namespace HeroKnightGame
         private GameState _prevState;
         private Sprite _backgroundMenu;
 
+
         public GameState CurrentState { get; set; }
 
         public KnightGame()
