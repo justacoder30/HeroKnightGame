@@ -14,11 +14,13 @@ namespace HeroKnightGame
         private Map _map;
         private Camera _camera;
         private Sprite _backGround;
+        private Heart _heart;
         public static bool IsEndGame;
 
         public EntityManager()
         {
             _map = new Map();
+            _heart = new Heart();
             _player = new Player();
             _flag = new Flag();
             _enemyManager = new EnemyManager();
@@ -36,6 +38,7 @@ namespace HeroKnightGame
             _coinManger.Update(_player);
             _flag.Update(_player);
             _camera.FollowPLayer(_player);
+            _heart.Update(_player.HP);
         }
 
         public void Draw()
@@ -50,6 +53,10 @@ namespace HeroKnightGame
             _enemyManager.Draw();
             _coinManger.Draw();    
             _player.Draw();
+            Globals.SpriteBatch.End();
+
+            Globals.SpriteBatch.Begin();
+            _heart.Draw();
             Globals.SpriteBatch.End();
         }
     }
