@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="300" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="18" nextobjectid="252">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="300" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="18" nextobjectid="258">
  <tileset firstgid="1" source="Dungeon Tile Set.tsx"/>
  <layer id="1" name="Tile Layer 1" width="300" height="40">
   <data encoding="csv">
@@ -156,18 +156,15 @@
   <object id="246" x="4368" y="608" width="64" height="16"/>
   <object id="251" x="2448" y="416" width="32" height="16"/>
  </objectgroup>
- <objectgroup id="16" name="FlagPosition" visible="0">
+ <objectgroup id="16" name="FlagPosition">
   <object id="231" x="4608" y="496" width="64" height="64"/>
  </objectgroup>
- <objectgroup id="3" name="MapCollider" visible="0">
+ <objectgroup id="3" name="MapCollider">
   <object id="1" x="0" y="0" width="16" height="640"/>
   <object id="2" x="4784" y="0" width="16" height="640"/>
   <object id="4" x="16" y="0" width="4768" height="16"/>
   <object id="5" x="16" y="624" width="4768" height="16"/>
   <object id="6" x="4432" y="592" width="352" height="32"/>
-  <object id="8" x="3936" y="432" width="256" height="64"/>
-  <object id="13" x="3632" y="496" width="560" height="64"/>
-  <object id="16" x="3456" y="560" width="736" height="64"/>
   <object id="18" x="3200" y="496" width="112" height="64"/>
   <object id="19" x="2960" y="448" width="192" height="80"/>
   <object id="20" x="3120" y="528" width="32" height="32"/>
@@ -192,6 +189,9 @@
   <object id="247" x="4512" y="576" width="240" height="16"/>
   <object id="248" x="4560" y="560" width="160" height="16"/>
   <object id="250" x="1424" y="288" width="160" height="32"/>
+  <object id="252" x="3632" y="496" width="224" height="64"/>
+  <object id="256" x="3936" y="432" width="256" height="192"/>
+  <object id="257" x="3456" y="560" width="400" height="64"/>
  </objectgroup>
  <objectgroup id="4" name="HolderCollider" visible="0">
   <object id="44" x="4192" y="466.5" width="80" height="13.5"/>
