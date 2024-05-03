@@ -27,6 +27,7 @@ namespace HeroKnightGame
                 if (enemies[i].IsRemoved)
                 {
                     enemies.RemoveAt(i);
+                    Score.IncreaseScore();
                     i--;
                 }
             }

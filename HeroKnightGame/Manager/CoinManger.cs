@@ -25,6 +25,7 @@ namespace HeroKnightGame.Manager
                 if (coins[i].IsRemoved)
                 {
                     SoundManager.PlaySound("Coin_sound");
+                    Score.IncreaseScore();
                     coins.RemoveAt(i);
                     i--;
                 }

@@ -26,6 +26,7 @@ namespace HeroKnightGame
             _enemyManager = new EnemyManager();
             _coinManger = new CoinManger();
             _camera = new Camera();
+            Score.Intit();
             _backGround = new Sprite(Globals.Content.Load<Texture2D>("Background/BackgroundGame"), new(0, 0));
 
             SoundManager.PlayMusic();
@@ -57,6 +58,7 @@ namespace HeroKnightGame
 
             Globals.SpriteBatch.Begin();
             _heart.Draw();
+            Score.Draw();
             Globals.SpriteBatch.End();
         }
     }
