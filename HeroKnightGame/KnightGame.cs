@@ -7,7 +7,6 @@ namespace HeroKnightGame
 {
     public class KnightGame : Game
     {
-        private Renderer _render;
         private EntityManager _entityManager;
         private GameState _currentState;
         private GameState _nextState;
@@ -45,8 +44,8 @@ namespace HeroKnightGame
             Globals.WindowSize = new Point(480, 270);
             Globals.Content = Content;
             SoundManager.Init();
+            Renderer.Init();
 
-            _render = new Renderer();
             //Renderer.SetResolution(1920, 1080);
             Renderer.SetResolution(1280, 720);
 
@@ -85,7 +84,7 @@ namespace HeroKnightGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _render.Activate();
+            Renderer.Activate();
             // TODO: Add your drawing code here
 
             Globals.SpriteBatch.Begin();
@@ -98,7 +97,7 @@ namespace HeroKnightGame
 
             _currentState.Draw();
 
-            _render.Draw();
+            Renderer.Draw();
 
             base.Draw(gameTime);
         }

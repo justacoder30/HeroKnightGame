@@ -4,7 +4,7 @@ using System;
 
 namespace HeroKnightGame
 {
-    public class Renderer
+    public static class Renderer
     {
         private static RenderTarget2D _target;
         private static Rectangle Rectangle;
@@ -15,7 +15,7 @@ namespace HeroKnightGame
         public static int PosY { get; private set; }
         public static float Scale { get; private set; }
 
-        public Renderer()
+        public static void Init()
         {
             _target = new RenderTarget2D(Globals.Graphics.GraphicsDevice, Globals.WindowSize.X, Globals.WindowSize.Y);
         }
@@ -75,12 +75,12 @@ namespace HeroKnightGame
             else UnsetFullScreen();
         }
 
-        public void Activate()
+        public static void Activate()
         {
             Globals.Graphics.GraphicsDevice.SetRenderTarget(_target);
         }
 
-        public void Draw()
+        public static void Draw()
         {
             Globals.Graphics.GraphicsDevice.SetRenderTarget(null);
             Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
