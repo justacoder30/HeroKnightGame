@@ -50,23 +50,29 @@ namespace HeroKnightGame
             return new((int)pos.X + OFFSET_Width, (int)pos.Y + _texture_Height, _texture_Width - OFFSET_Width * 2, 1);
         }
 
+        //Ham ap dung trong luc len nhan vat
         private void ApplyGravity()
         {
+            //Ta se tinh toan cai GravityBounds ngay duoi chan nguoi choi de kiem tra nguoi choi co dang dung tren ground hay khong  
             var newRect = GravityBounds(new(Position.X, Position.Y));
 
             foreach (var collider in Map.GetMapCollision)
             {
+                //Neu co thi khong ap dung trong luc len nhan vat, thoat ra
                 if (newRect.Intersects(collider)) return;
             }
 
             foreach (var collider in Map.GetHolderCollision)
             {
+                //Neu co thi khong ap dung trong luc len nhan vat, thoat ra
                 if (newRect.Intersects(collider)) return;
             }
 
+            //Ap dung gia toc trong truong len nhan vat
             velocity.Y += Gravity * Globals.Time;
         }
 
+        //Cap nhap vector chuyen dong cho nhan vat
         private void UpdateVelocity()
         {
             _prevKeySate = _currentKeySate;
@@ -74,19 +80,25 @@ namespace HeroKnightGame
 
             velocity.X = 0;
 
+            //Ham ap dung trong luc cho nhan vat
             ApplyGravity();
 
+            //Neu Nhan vat chet thi thoat ra
             if (_state == CharacterState.Death) return;
 
+            //vector chuyen dong sang phai
             if (_currentKeySate.IsKeyDown(Keys.D)) 
             {
                 velocity.X = Speed;
             }
+
+            //vector chuyen dong sang trai
             if (_currentKeySate.IsKeyDown(Keys.A))
             {
                 velocity.X = -Speed;
             }
 
+            //Khi nhay Vecor hu0ng len tren
             if (_currentKeySate.IsKeyDown(Keys.Space) && !_falling)
             {
                 velocity.Y = -Jump;
@@ -237,6 +249,7 @@ namespace HeroKnightGame
             else if (velocity.Y > 0) _state = CharacterState.Fall;
         }
         
+        //Ham chay animation dua tren cac trang thai cua nhan vat
         private void SetAnimtion()
         {
             _animationManager.Update();

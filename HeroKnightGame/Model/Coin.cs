@@ -24,23 +24,27 @@ namespace HeroKnightGame
             _texture_Width = _animationManager.Animation.FrameWidth;
         }
 
+        //Ham kiem tra Coin co bi nhan vat dung vao khong
         private void _isCollected(Player player)
         {
             var _playerRect = player.CalculateBounds();
             var _coinRect = CalculateBounds();
 
+            //Neu co thi loai bo Coin ra khoi phan display
             if (_playerRect.Intersects(_coinRect))
             {
                 IsRemoved = true;
             }
         }
 
+        //Ham setup animation cho dong xu
         private void SetAnimation()
         {
             _animationManager.Update();
             _animationManager.Play(_animations["Idle"]);
         }
 
+        //Ham cap nhap cac thanh phan logic cua Coin, chay moi Frame
         public void Update(Player player)
         {
             _isCollected(player);
