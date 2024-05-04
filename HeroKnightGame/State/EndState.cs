@@ -11,6 +11,7 @@ namespace HeroKnightGame
     {
         private List<Button> _buttons;
 
+        //Khoi tao EndState
         public EndState(KnightGame game)
         {
             _game = game;
@@ -28,12 +29,14 @@ namespace HeroKnightGame
             };
         }
 
+        //Neu click vao Continue Button thi` tiep tuc choi game
         private void PlayAgainButton_Click(object sender, EventArgs e)
         {
             EntityManager.IsEndGame = false;
             _game.ChangeNextState(new RunningState(_game));
         }
 
+        //Neu Click vao Quit Button thi` thoat gameplay
         private void QuitButton_Click(object sender, EventArgs e)
         {
             _game.Exit();

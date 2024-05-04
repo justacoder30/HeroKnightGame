@@ -10,6 +10,7 @@ namespace HeroKnightGame.Manager
         static SoundEffectInstance _instance;
         public static Song Background_music;
 
+        //Khoi tao Phan quan ly am thanh
         public static void Init()
         {
             sounds = new List<Sound>();
@@ -26,6 +27,7 @@ namespace HeroKnightGame.Manager
             Background_music = Globals.Content.Load<Song>("Music/Background_music");
         }
 
+        //Chay hieu ung am thanh
         public static void PlaySound(string Name, float volume = 1f, bool loop = false)
         {
             foreach (var sound in sounds)
@@ -45,12 +47,13 @@ namespace HeroKnightGame.Manager
             _instance.Play();
             _instance.Volume = volume;   
         }
-
+        //Dung am thanh
         public static void StopSound()
         {
             if(_instance != null) _instance.Stop();
         }
 
+        //Chay nhac nen
         public static void PlayMusic()
         {
             MediaPlayer.Play(Background_music);
@@ -63,6 +66,7 @@ namespace HeroKnightGame.Manager
             MediaPlayer.Resume();
         }
 
+        //Dung choi nhac
         public static void StopMusic()
         {
             MediaPlayer.Stop();

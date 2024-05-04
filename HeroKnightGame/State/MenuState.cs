@@ -10,6 +10,8 @@ namespace HeroKnightGame
     {
         private List<Button> _buttons;
 
+
+        //Khoi tao Menu
         public MenuState(KnightGame game)
         {
             _game = game;
@@ -27,16 +29,19 @@ namespace HeroKnightGame
             };
         }
 
+        //Neu Click vao Play Button thi` vao gameplay
         private void StartButton_Click(object sender, EventArgs e)
         {
             _game.ChangeNextState(new RunningState(_game));
         }
 
+        //Neu Click vao Quit Button thi` thoat gameplay
         private void QuitButton_Click(object sender, EventArgs e)
         {
             _game.Exit();
         }
 
+        //Cap nhap phim Menu
         public override void Update()
         {
             foreach (Button button in _buttons)
@@ -45,6 +50,7 @@ namespace HeroKnightGame
             }
         }
 
+        //Ve phim Menu len man hinh`
         public override void Draw()
         {
             Globals.SpriteBatch.Begin();

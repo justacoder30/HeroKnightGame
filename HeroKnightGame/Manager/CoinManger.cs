@@ -5,6 +5,8 @@ namespace HeroKnightGame.Manager
     public class CoinManger
     {
         private List<Coin> coins;
+
+        //Khoi tao Dong Xu
         public CoinManger()
         {
             coins = new List<Coin>();   
@@ -17,11 +19,14 @@ namespace HeroKnightGame.Manager
             }
         }
 
+        //Cap nhap Dong xu
         public void Update(Player player)
         {
+            //Kiem tra Dong xu co bi nhan vat dung vao khong
             for(int i = 0; i < coins.Count; i++)
             {
                 coins[i].Update(player);
+                //Neu co thi loai bo khoi phan Display
                 if (coins[i].IsRemoved)
                 {
                     SoundManager.PlaySound("Coin_sound");
@@ -32,6 +37,7 @@ namespace HeroKnightGame.Manager
             }
         }
 
+        //Ve dong xu len man hinh
         public void Draw()
         {
             foreach(Coin coin in coins)
