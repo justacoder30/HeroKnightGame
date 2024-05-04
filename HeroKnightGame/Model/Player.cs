@@ -192,6 +192,7 @@ namespace HeroKnightGame
                 if (rect.Intersects(EnemyManager.enemies[i].CalculateBounds()))
                 {
                     EnemyManager.enemies[i].IsBeingHit(damage);
+                    return;
                 }
             }
         }
