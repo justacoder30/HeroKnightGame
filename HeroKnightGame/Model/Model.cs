@@ -23,6 +23,7 @@ namespace HeroKnightGame
         protected int OFFSET_Height;
         protected int damage;
         protected bool BeingHit;
+        protected Color Color = Color.White;
         public int HP;
         public bool IsRemoved;
 
@@ -66,7 +67,7 @@ namespace HeroKnightGame
             Globals.SpriteBatch.Draw(_animationManager.Animation.Texture,
                                     Position,
                                     _animationManager.Rect,
-                                    Color.White,
+                                    Color,
                                     0f,
                                     Vector2.One,
                                     1f,

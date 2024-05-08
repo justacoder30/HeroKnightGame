@@ -14,6 +14,7 @@ namespace HeroKnightGame
         private KeyboardState _prevKeySate;
         private CharacterState _prevState;
         private CharacterState _currentState;
+        private int count;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -27,6 +28,7 @@ namespace HeroKnightGame
             OFFSET_Height = 42;
             damage = 10;
             HP = 50;
+            count = 0;
 
             Position = Map.GetPlayerPosition();
 
@@ -279,17 +281,28 @@ namespace HeroKnightGame
             }
         }
 
+        private void UpdateColor()
+        {
+            if (BeingHit)
+            {
+                Color = Color.Red;
+                count++;
+                if (count >= 8)
+                {
+                    BeingHit = false;
+                    count = 0;
+                }
+            }
+            else Color = Color.White;
+        }
+
         public void Update()
         {
             UpdateVelocity();
             UpdatePosition();
+            UpdateColor();
             SetAnimtion();
             Updatesound();
-        }
-
-        public new void Draw()
-        {
-            base.Draw();
         }
     }
 }
