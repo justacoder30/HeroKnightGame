@@ -23,6 +23,7 @@ namespace HeroKnightGame.Manager
             sounds.Add(new Sound("GameWin_sound", Globals.Content.Load<SoundEffect>("SoundFX/WinGame_sound")));
             sounds.Add(new Sound("ButtonChose_sound", Globals.Content.Load<SoundEffect>("SoundFX/ButtonChose_sound")));
             sounds.Add(new Sound("ButtonClick_sound", Globals.Content.Load<SoundEffect>("SoundFX/ButtonClick_sound")));
+            sounds.Add(new Sound("BeingHit_sound", Globals.Content.Load<SoundEffect>("SoundFX/Hit_sound")));
 
             Background_music = Globals.Content.Load<Song>("Music/Background_music");
         }

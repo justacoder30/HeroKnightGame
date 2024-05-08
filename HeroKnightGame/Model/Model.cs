@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HeroKnightGame.Manager;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -60,6 +61,7 @@ namespace HeroKnightGame
         {
             BeingHit = true;
             HP -= damage;
+            SoundManager.PlaySound("BeingHit_sound");
         }
 
         public new void Draw()

@@ -119,9 +119,9 @@ namespace HeroKnightGame
             {
                 newRect = CalculateBounds(new(Position.X, newPos.Y));
 
-                if (newRect.Intersects(collider))
+                if (newRect.Intersects(collider) && _state != CharacterState.Death)
                 {
-                    HP = 0;
+                    IsBeingHit(HP);
                     velocity.X = 0;
                 }
                 
