@@ -50,10 +50,5 @@ namespace HeroKnightGame
             _isCollected(player);
             SetAnimation();
         }
-
-        public new void Draw()
-        {
-            base.Draw();
-        }
     }
 }

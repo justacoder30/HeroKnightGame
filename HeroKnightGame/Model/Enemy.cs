@@ -208,10 +208,5 @@ namespace HeroKnightGame
             player = _player;
 
         }
-
-        public new void Draw()
-        {
-            base.Draw();
-        }
     }
 }

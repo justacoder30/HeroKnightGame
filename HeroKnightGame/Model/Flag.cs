@@ -77,10 +77,5 @@ namespace HeroKnightGame
             _player = player;
             SetAnimation();
         }
-
-        public new void Draw()
-        {
-            base.Draw();
-        }
     }
 }
