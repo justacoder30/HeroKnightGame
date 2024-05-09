@@ -7,7 +7,6 @@ namespace HeroKnightGame
 {
     public class KnightGame : Game
     {
-        private EntityManager _entityManager;
         private GameState _currentState;
         private GameState _nextState;
         private GameState _prevState;
