@@ -11,6 +11,7 @@ namespace HeroKnightGame
         public RunningState(KnightGame game) : base(game) 
         {
             _entityManager = new EntityManager();
+            _game.IsMouseVisible = false;
         }
 
         //Cap nhap xu ly gameplay

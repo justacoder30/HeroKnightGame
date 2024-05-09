@@ -25,6 +25,7 @@ namespace HeroKnightGame
         protected int damage;
         protected bool BeingHit;
         protected Color Color = Color.White;
+        protected float _timer;
         public int HP;
         public bool IsRemoved;
 
@@ -62,6 +63,21 @@ namespace HeroKnightGame
             BeingHit = true;
             HP -= damage;
             SoundManager.PlaySound("BeingHit_sound");
+        }
+
+        protected void UpdateColor()
+        {
+            if (BeingHit)
+            {
+                Color = Color.Red;
+                _timer += Globals.Time;
+                if (_timer >= 0.2)
+                {
+                    BeingHit = false;
+                    _timer = 0;
+                }
+            }
+            else Color = Color.White;
         }
 
         public new void Draw()

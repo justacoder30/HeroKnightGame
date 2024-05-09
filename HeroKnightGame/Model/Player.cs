@@ -14,7 +14,6 @@ namespace HeroKnightGame
         private KeyboardState _prevKeySate;
         private CharacterState _prevState;
         private CharacterState _currentState;
-        private float _timer;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position) 
         { }
@@ -278,21 +277,6 @@ namespace HeroKnightGame
                     _animationManager.Play(_animations["Death"]);
                     break;
             }
-        }
-
-        private void UpdateColor()
-        {
-            if (BeingHit)
-            {
-                Color = Color.Red;
-                _timer += Globals.Time;
-                if (_timer >= 0.2)
-                {
-                    BeingHit = false;
-                    _timer = 0;
-                }
-            }
-            else Color = Color.White;
         }
 
         public void Update()

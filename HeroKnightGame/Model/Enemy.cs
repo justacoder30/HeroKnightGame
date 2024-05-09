@@ -10,7 +10,6 @@ namespace HeroKnightGame
     public class Enemy : Model
     {
         private float _timeChange;
-        private float _timer;
         private float _timeAttacking;
         private bool _isNearPlayer;
         private Player _player;

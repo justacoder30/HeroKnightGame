@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Xml.Linq;
 
 namespace HeroKnightGame
 {
@@ -29,6 +30,7 @@ namespace HeroKnightGame
         public void ChangePrevState()
         {
             _nextState = _prevState;
+            IsMouseVisible = false;
         }
 
         public void SaveCurrentState()

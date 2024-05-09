@@ -15,6 +15,8 @@ namespace HeroKnightGame
         {
             _game = game;
 
+            _game.IsMouseVisible = true;
+
             Button ContinueButton = new Button(Globals.Content.Load<Texture2D>("Button/Resume Button"), new Vector2(176, 64));
             ContinueButton.Click += ContinueButton_Click;
 
