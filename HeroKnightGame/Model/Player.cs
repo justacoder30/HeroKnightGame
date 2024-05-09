@@ -137,7 +137,7 @@ namespace HeroKnightGame
                         newPos.Y = collider.Top - _texture_Height;
                         _falling = false;
                         velocity.Y = 0;
-
+                        continue;
                     }
                 }  
             }
@@ -175,6 +175,7 @@ namespace HeroKnightGame
                             newPos.Y = collider.Bottom - OFFSET_Height;
                             velocity.Y = 0;
                         }
+                        continue;
                     }
                 }  
             }
