@@ -118,7 +118,6 @@ namespace HeroKnightGame
             return _animationManager.Animation.FrameSpeed * _animationManager.Animation.FrameCount;
         }
 
-
         private void UpdateAnimation()
         {
             if (!_animationManager.IsAnimationRunning && _state == CharacterState.Death)
